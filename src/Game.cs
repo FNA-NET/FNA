@@ -677,8 +677,16 @@ namespace Microsoft.Xna.Framework
 			currentlyDrawingComponents.Clear();
 		}
 
+		bool _sdlTextInputInitStopped;
+
 		protected virtual void Update(GameTime gameTime)
 		{
+			if (!_sdlTextInputInitStopped) // Force to Stop SDL2 TextInput on init.
+			{
+				SDL2.SDL.SDL_StopTextInput();
+				_sdlTextInputInitStopped = true;
+			}
+
 			lock (updateableComponents)
 			{
 				for (int i = 0; i < updateableComponents.Count; i += 1)

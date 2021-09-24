@@ -1,6 +1,6 @@
 <Project>
 
-  <ItemGroup Condition="'$(TargetFramework)' == 'net6.0'">
+  <ItemGroup Condition="'$(TargetFramework)' == 'net6.0' Or '$(TargetFramework)' == 'net6.0-windows'">
     <Content Include="..\runtimes\FAudio\win-x86\FAudio.dll">
       <Link>runtimes\win-x86\native\FAudio.dll</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

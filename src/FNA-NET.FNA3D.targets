@@ -1,6 +1,6 @@
 <Project>
 
-  <ItemGroup Condition="'$(TargetFramework)' == 'net6.0'">
+  <ItemGroup Condition="'$(TargetFramework)' == 'net6.0' Or '$(TargetFramework)' == 'net6.0-windows'">
     <Content Include="..\runtimes\FNA3D\win-x86\FNA3D.dll">
       <Link>runtimes\win-x86\native\FNA3D.dll</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

@@ -156,9 +156,7 @@ namespace Microsoft.Xna.Framework
 #pragma warning restore CA2255 // The 'ModuleInitializer' attribute should not be used in libraries
 		public static void Init()
 		{
-			// Get the platform and architecture
-			string cpu = RuntimeInformation.ProcessArchitecture.ToString().ToLowerInvariant();
-			string wordsize = (IntPtr.Size * 8).ToString();
+			Threading.ResetThread(System.Threading.Thread.CurrentThread.ManagedThreadId);
 
 			// Set the resolver callback
 #if !__IOS__ && !__TVOS__

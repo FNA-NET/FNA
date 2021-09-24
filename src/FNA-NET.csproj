@@ -8,7 +8,7 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="$([MSBuild]::IsOSPlatform('windows'))">
-    <TargetFrameworks>net6.0;</TargetFrameworks>
+    <TargetFrameworks>net6.0;net6.0-windows</TargetFrameworks>
   </PropertyGroup>
 
   <PropertyGroup Condition="$([MSBuild]::IsOSPlatform('osx'))">
@@ -36,6 +36,11 @@
     <Message Importance="High" Text="No property overrides found at '$(FNASettingsPropsFilePath)'" Condition="!Exists('$(FNASettingsPropsFilePath)')" />
     <Message Importance="High" Text="Loaded property overrides from '$(FNASettingsPropsFilePath)'" Condition="Exists('$(FNASettingsPropsFilePath)')" />
   </Target>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'net6.0-windows'">
+    <Compile Include="..\lib\ImeSharp\ImeSharp\**\*.cs" LinkBase="Utilities\ImeSharp" />
+    <PackageReference Version="1.0.0" Include="TsfSharp" />
+  </ItemGroup>
 
   <Import Project="FNA-NET.FAudio.targets" />
   <Import Project="FNA-NET.FNA3D.targets" />

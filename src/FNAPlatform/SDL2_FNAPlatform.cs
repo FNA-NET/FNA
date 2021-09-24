@@ -51,6 +51,8 @@ namespace Microsoft.Xna.Framework
 
 		#region Init/Exit Methods
 
+		private static Vector2 LastPointerPosition;
+
 		public static string ProgramInit(LaunchParameters args)
 		{
 			// This is how we can weed out cases where fnalibs is missing
@@ -807,6 +809,8 @@ namespace Microsoft.Xna.Framework
 			int[] textInputControlRepeat,
 			ref bool textInputSuppress
 		) {
+			var sdlImeHandler = game.Window.ImmService as SDLImeHandler;
+
 			SDL.SDL_Event evt;
 			while (SDL.SDL_PollEvent(out evt) == 1)
 			{
@@ -822,16 +826,27 @@ namespace Microsoft.Xna.Framework
 						{
 							textInputControlDown[textIndex] = true;
 							textInputControlRepeat[textIndex] = Environment.TickCount + 400;
-							TextInputEXT.OnTextInput(FNAPlatform.TextInputCharacters[textIndex]);
+							sdlImeHandler?.OnTextInput(FNAPlatform.TextInputCharacters[textIndex], key);
 						}
 						else if (Keyboard.keys.Contains(Keys.LeftControl) && key == Keys.V)
 						{
 							textInputControlDown[6] = true;
 							textInputControlRepeat[6] = Environment.TickCount + 400;
-							TextInputEXT.OnTextInput(FNAPlatform.TextInputCharacters[6]);
+							sdlImeHandler?.OnTextInput(FNAPlatform.TextInputCharacters[6], key);
 							textInputSuppress = true;
 						}
 					}
+
+					char character = (char)evt.key.keysym.sym;
+					var alt = (evt.key.keysym.mod & SDL.SDL_Keymod.KMOD_ALT) != 0;
+					var control = (evt.key.keysym.mod & SDL.SDL_Keymod.KMOD_CTRL) != 0;
+					var shift = (evt.key.keysym.mod & SDL.SDL_Keymod.KMOD_SHIFT) != 0;
+					var gui = (evt.key.keysym.mod & SDL.SDL_Keymod.KMOD_GUI) != 0;
+
+					game.Window.OnKeyDown(new KeyEventArgs(key, alt, control, shift, gui));
+
+					if (char.IsControl(character) || KeysHelper.GetKeyChar(key, shift, out character))
+						game.Window.OnKeyPress(new KeyPressEventArgs(key, character));
 				}
 				else if (evt.type == SDL.SDL_EventType.SDL_KEYUP)
 				{
@@ -849,17 +864,73 @@ namespace Microsoft.Xna.Framework
 							textInputSuppress = false;
 						}
 					}
+
+					var alt = (evt.key.keysym.mod & SDL.SDL_Keymod.KMOD_ALT) != 0;
+					var control = (evt.key.keysym.mod & SDL.SDL_Keymod.KMOD_CTRL) != 0;
+					var shift = (evt.key.keysym.mod & SDL.SDL_Keymod.KMOD_SHIFT) != 0;
+					var gui = (evt.key.keysym.mod & SDL.SDL_Keymod.KMOD_GUI) != 0;
+
+					game.Window.OnKeyUp(new KeyEventArgs(key, alt, control, shift, gui));
 				}
 
 				// Mouse Input
 				else if (evt.type == SDL.SDL_EventType.SDL_MOUSEBUTTONDOWN)
 				{
 					Mouse.INTERNAL_onClicked(evt.button.button - 1);
+
+					var position = new Vector2(evt.button.x, evt.button.y);
+					game.Window.OnPointerDown(new PointerEventArgs
+					{
+						Button = (InputButton)(1 << (evt.button.button - 1)),
+						Delta = position - LastPointerPosition,
+						Position = position,
+					});
+					LastPointerPosition = position;
+				}
+				else if (evt.type == SDL.SDL_EventType.SDL_MOUSEBUTTONUP)
+				{
+					var position = new Vector2(evt.button.x, evt.button.y);
+					game.Window.OnPointerUp(new PointerEventArgs
+					{
+						Button = (InputButton)(1 << (evt.button.button - 1)),
+						Delta = position - LastPointerPosition,
+						Position = position,
+					});
+					LastPointerPosition = position;
+				}
+				else if (evt.type == SDL.SDL_EventType.SDL_MOUSEMOTION)
+				{
+					var position = new Vector2(evt.motion.x, evt.motion.y);
+					game.Window.OnPointerMove(new PointerEventArgs
+					{
+						Button = (InputButton)evt.motion.state,
+						Delta = position - LastPointerPosition,
+						Position = position,
+					});
+					LastPointerPosition = position;
 				}
 				else if (evt.type == SDL.SDL_EventType.SDL_MOUSEWHEEL)
 				{
 					// 120 units per notch. Because reasons.
-					Mouse.INTERNAL_MouseWheel += evt.wheel.y * 120;
+					const int wheelDelta = 120;
+					Mouse.INTERNAL_MouseWheel += evt.wheel.y * wheelDelta;
+
+					if (evt.wheel.y != 0)
+					{
+						game.Window.OnPointerScroll(new PointerEventArgs {
+							Button = InputButton.Middle,
+							Position = LastPointerPosition,
+							ScrollDelta = new Vector2(0, evt.wheel.y * wheelDelta)
+						});
+					}
+					if (evt.wheel.x != 0)
+					{
+						game.Window.OnPointerScroll(new PointerEventArgs {
+							Button = InputButton.Middle,
+							Position = LastPointerPosition,
+							ScrollDelta = new Vector2(evt.wheel.x * wheelDelta, 0)
+						});
+					}
 				}
 
 				// Touch Input
@@ -876,6 +947,14 @@ namespace Microsoft.Xna.Framework
 						0,
 						0
 					);
+
+					game.Window.OnPointerDown(new PointerEventArgs
+					{
+						PointerId = (int) evt.tfinger.fingerId,
+						Button = InputButton.Left,
+						Delta = Vector2.Zero,
+						Position = new Vector2(evt.tfinger.x, evt.tfinger.y)
+					});
 				}
 				else if (evt.type == SDL.SDL_EventType.SDL_FINGERMOTION)
 				{
@@ -887,6 +966,14 @@ namespace Microsoft.Xna.Framework
 						evt.tfinger.dx,
 						evt.tfinger.dy
 					);
+
+					game.Window.OnPointerMove(new PointerEventArgs
+					{
+						PointerId = (int) evt.tfinger.fingerId,
+						Button = InputButton.Left,
+						Delta = new Vector2(evt.tfinger.dx, evt.tfinger.dy),
+						Position = new Vector2(evt.tfinger.x, evt.tfinger.y)
+					});
 				}
 				else if (evt.type == SDL.SDL_EventType.SDL_FINGERUP)
 				{
@@ -898,6 +985,14 @@ namespace Microsoft.Xna.Framework
 						0,
 						0
 					);
+
+					game.Window.OnPointerUp(new PointerEventArgs
+					{
+						PointerId = (int) evt.tfinger.fingerId,
+						Button = InputButton.Left,
+						Delta = Vector2.Zero,
+						Position = new Vector2(evt.tfinger.x, evt.tfinger.y)
+					});
 				}
 
 				// Various Window Events...
@@ -1031,31 +1126,15 @@ namespace Microsoft.Xna.Framework
 				// Text Input
 				else if (evt.type == SDL.SDL_EventType.SDL_TEXTINPUT && !textInputSuppress)
 				{
+					// Mimic a CompositionEnd event
+					sdlImeHandler?.OnTextComposition(IMEString.Empty, 0);
+
 					// Based on the SDL2# LPUtf8StrMarshaler
 					unsafe
 					{
-						int bytes = MeasureStringLength(evt.text.text);
-						if (bytes > 0) 
-						{
-							/* UTF8 will never encode more characters
-							 * than bytes in a string, so bytes is a
-							 * suitable upper estimate of size needed
-							 */
-							char* charsBuffer = (char*)NativeMemory.Alloc((uint)bytes * 2);
-
-							int chars = Encoding.UTF8.GetChars(
-								evt.text.text,
-								bytes,
-								charsBuffer,
-								bytes
-							);
-
-							for (int i = 0; i < chars; i += 1)
-							{
-								TextInputEXT.OnTextInput(charsBuffer[i]);
-							}
-							NativeMemory.Free(charsBuffer);
-						}
+						if (sdlImeHandler != null)
+							foreach (var c in SDLBufferToIMEString(evt.text.text)) // This way to support emoji.
+								sdlImeHandler.OnTextInput(c, KeyboardUtil.ToXna(c));
 					}
 				}
 
@@ -1063,24 +1142,11 @@ namespace Microsoft.Xna.Framework
 				{
 					unsafe 
 					{
-						int bytes = MeasureStringLength(evt.edit.text);
-						if (bytes > 0) 
+						if (sdlImeHandler != null)
 						{
-							char* charsBuffer = (char*)NativeMemory.Alloc((uint)bytes * 2);
-							int chars = Encoding.UTF8.GetChars(
-								evt.edit.text,
-								bytes,
-								charsBuffer,
-								bytes
-							);
-							string text = new string(charsBuffer, 0, chars);
-							NativeMemory.Free(charsBuffer);
-
-							TextInputEXT.OnTextEditing(text, evt.edit.start, evt.edit.length);
-						} 
-						else 
-						{
-							TextInputEXT.OnTextEditing(null, 0, 0);
+							var compositionText = SDLBufferToIMEString(evt.edit.text);
+							var cursorPosition = evt.edit.start;
+							sdlImeHandler?.OnTextComposition(compositionText, cursorPosition);
 						}
 					}
 				}
@@ -1097,16 +1163,37 @@ namespace Microsoft.Xna.Framework
 			{
 				if (textInputControlDown[i] && textInputControlRepeat[i] <= Environment.TickCount)
 				{
-					TextInputEXT.OnTextInput(FNAPlatform.TextInputCharacters[i]);
+					var c = FNAPlatform.TextInputCharacters[i];
+					sdlImeHandler?.OnTextInput(c, KeyboardUtil.ToXna(c));
 				}
 			}
 		}
 
-		private unsafe static int MeasureStringLength(byte* ptr)
+		const int BufferSize = 1024;
+		static byte[] InputByteBuffer = new byte[BufferSize];
+		static int InputByteCount;
+		static char[] InputCharBuffer = new char[BufferSize / 2];
+		static int InputCharCount;
+
+		static unsafe IMEString SDLBufferToIMEString(byte* text, int maxSize = 128)
 		{
-			int bytes;
-			for (bytes = 0; *ptr != 0; ptr += 1, bytes += 1);
-			return bytes;
+			Array.Clear(InputByteBuffer, 0, InputByteCount);
+
+			InputByteCount = 0;
+			for (int i = 0; i < maxSize; i++)
+			{
+				if (text[i] == 0)
+					break;
+
+				InputByteBuffer[i] = text[i];
+				InputByteCount++;
+			}
+
+			Array.Clear(InputCharBuffer, 0, InputCharCount);
+
+			InputCharCount = System.Text.Encoding.UTF8.GetChars(InputByteBuffer, 0, InputByteCount, InputCharBuffer, 0);
+
+			return new IMEString(InputCharBuffer, InputCharCount);
 		}
 
 		public static bool NeedsPlatformMainLoop()

@@ -84,6 +84,11 @@ namespace Microsoft.Xna.Framework
 
 		#endregion
 
+		/// <summary>
+		/// IME service to handle text compositions and inputs. Only works for Desktop Platforms
+		/// </summary>
+		public ImmService ImmService { get; internal set; }
+
 		#region Private Variables
 
 		private string _title;
@@ -103,6 +108,41 @@ namespace Microsoft.Xna.Framework
 		public event EventHandler<EventArgs> ClientSizeChanged;
 		public event EventHandler<EventArgs> OrientationChanged;
 		public event EventHandler<EventArgs> ScreenDeviceNameChanged;
+
+		/// <summary>
+		/// Buffered keyboard KeyDown event.
+		/// </summary>
+		public event EventHandler<KeyEventArgs> KeyDown;
+
+		/// <summary>
+		/// Buffered keyboard KeyPress event.
+		/// </summary>
+		public event EventHandler<KeyPressEventArgs> KeyPress;
+
+		/// <summary>
+		/// Buffered keyboard KeyUp event.
+		/// </summary>
+		public event EventHandler<KeyEventArgs> KeyUp;
+
+		/// <summary>
+		/// Pointer Down event.
+		/// </summary>
+		public event EventHandler<PointerEventArgs> PointerDown;
+
+		/// <summary>
+		/// Pointer Up event.
+		/// </summary>
+		public event EventHandler<PointerEventArgs> PointerUp;
+
+		/// <summary>
+		/// Pointer Move event.
+		/// </summary>
+		public event EventHandler<PointerEventArgs> PointerMove;
+
+		/// <summary>
+		/// Pointer Scroll event.
+		/// </summary>
+		public event EventHandler<PointerEventArgs> PointerScroll;
 
 		#endregion
 
@@ -163,6 +203,41 @@ namespace Microsoft.Xna.Framework
 			{
 				ScreenDeviceNameChanged(this, EventArgs.Empty);
 			}
+		}
+
+		internal void OnKeyDown(KeyEventArgs e)
+		{
+			EventHelpers.Raise(this, KeyDown, e);
+		}
+
+		internal void OnKeyPress(KeyPressEventArgs e)
+		{
+			EventHelpers.Raise(this, KeyPress, e);
+		}
+
+		internal void OnKeyUp(KeyEventArgs e)
+		{
+			EventHelpers.Raise(this, KeyUp, e);
+		}
+
+		internal void OnPointerDown(PointerEventArgs e)
+		{
+			EventHelpers.Raise(this, PointerDown, e);
+		}
+
+		internal void OnPointerUp(PointerEventArgs e)
+		{
+			EventHelpers.Raise(this, PointerUp, e);
+		}
+
+		internal void OnPointerMove(PointerEventArgs e)
+		{
+			EventHelpers.Raise(this, PointerMove, e);
+		}
+
+		internal void OnPointerScroll(PointerEventArgs e)
+		{
+			EventHelpers.Raise(this, PointerScroll, e);
 		}
 
 		protected internal abstract void SetSupportedOrientations(

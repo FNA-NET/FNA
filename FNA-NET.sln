@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FNAGame1", "samples\FNAGame
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "iOSGame1", "samples\iOSGame1\iOSGame1.csproj", "{CF25FD5D-178F-402F-AD4E-F032A8A30270}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FNAWinGame1", "samples\FNAWinGame1\FNAWinGame1.csproj", "{F09215D1-3738-4D36-A249-E6F9B3B8FEE8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -77,6 +79,22 @@ Global
 		{CF25FD5D-178F-402F-AD4E-F032A8A30270}.Release|x86.ActiveCfg = Release|Any CPU
 		{CF25FD5D-178F-402F-AD4E-F032A8A30270}.Release|x86.Build.0 = Release|Any CPU
 		{CF25FD5D-178F-402F-AD4E-F032A8A30270}.Release|x86.Deploy.0 = Release|Any CPU
+		{F09215D1-3738-4D36-A249-E6F9B3B8FEE8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F09215D1-3738-4D36-A249-E6F9B3B8FEE8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F09215D1-3738-4D36-A249-E6F9B3B8FEE8}.Debug|arm64.ActiveCfg = Debug|Any CPU
+		{F09215D1-3738-4D36-A249-E6F9B3B8FEE8}.Debug|arm64.Build.0 = Debug|Any CPU
+		{F09215D1-3738-4D36-A249-E6F9B3B8FEE8}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{F09215D1-3738-4D36-A249-E6F9B3B8FEE8}.Debug|x64.Build.0 = Debug|Any CPU
+		{F09215D1-3738-4D36-A249-E6F9B3B8FEE8}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{F09215D1-3738-4D36-A249-E6F9B3B8FEE8}.Debug|x86.Build.0 = Debug|Any CPU
+		{F09215D1-3738-4D36-A249-E6F9B3B8FEE8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F09215D1-3738-4D36-A249-E6F9B3B8FEE8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F09215D1-3738-4D36-A249-E6F9B3B8FEE8}.Release|arm64.ActiveCfg = Release|Any CPU
+		{F09215D1-3738-4D36-A249-E6F9B3B8FEE8}.Release|arm64.Build.0 = Release|Any CPU
+		{F09215D1-3738-4D36-A249-E6F9B3B8FEE8}.Release|x64.ActiveCfg = Release|Any CPU
+		{F09215D1-3738-4D36-A249-E6F9B3B8FEE8}.Release|x64.Build.0 = Release|Any CPU
+		{F09215D1-3738-4D36-A249-E6F9B3B8FEE8}.Release|x86.ActiveCfg = Release|Any CPU
+		{F09215D1-3738-4D36-A249-E6F9B3B8FEE8}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -84,6 +102,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{1416C843-528B-4161-B43C-BCA26B4ABCE7} = {D2158F14-9441-4380-A1DC-421C41E5CE34}
 		{CF25FD5D-178F-402F-AD4E-F032A8A30270} = {D2158F14-9441-4380-A1DC-421C41E5CE34}
+		{F09215D1-3738-4D36-A249-E6F9B3B8FEE8} = {D2158F14-9441-4380-A1DC-421C41E5CE34}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {881CED7F-6893-414E-97E2-811B322DA058}

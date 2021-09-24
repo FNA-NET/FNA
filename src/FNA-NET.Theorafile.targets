@@ -1,6 +1,6 @@
 <Project>
 
-  <ItemGroup Condition="'$(TargetFramework)' == 'net6.0'">
+  <ItemGroup Condition="'$(TargetFramework)' == 'net6.0' Or '$(TargetFramework)' == 'net6.0-windows'">
     <Content Include="..\runtimes\Theorafile\win-x86\libtheorafile.dll">
       <Link>runtimes\win-x86\native\libtheorafile.dll</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
