@@ -12,7 +12,7 @@
 	url = git://github.com/FNA-XNA/Theorafile.git
 [submodule "runtimes"]
 	path = runtimes
-	url = git@github.com:FNA-NET/FNA-NET.runtimes.git
+	url = git://github.com/FNA-NET/FNA-NET.runtimes.git
 [submodule "lib/ImeSharp"]
 	path = lib/ImeSharp
-	url = git@github.com:ryancheung/ImeSharp.git
+	url = git://github.com/ryancheung/ImeSharp.git

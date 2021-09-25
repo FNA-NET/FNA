@@ -1,0 +1,88 @@
+name: Build & Pack
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  ios_build:
+    runs-on: macos-latest
+    env:
+      DOTNET_NOLOGO: true
+      DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
+      DOTNET_CLI_TELEMETRY_OPTOUT: true
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: '6.0.x'
+          include-prerelease: true
+
+      - uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: '3.1.x'
+
+      - name: Update submodules
+        run: git submodule update --init --recursive
+
+      - name: Restore cake tool
+        run: dotnet tool restore
+
+      - name: Install dotnet workloads
+        run: |
+          dotnet workload install ios --skip-manifest-update
+
+      - name: Build
+        run: |
+          dotnet cake --build-target=Build
+
+      - uses: actions/upload-artifact@v2
+        with:
+          name: temp-ios-artifacts
+          path: Artifacts/Release/net6.0-ios
+          retention-days: 1
+
+  windows_build:
+    runs-on: windows-latest
+    env:
+      DOTNET_NOLOGO: true
+      DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
+      DOTNET_CLI_TELEMETRY_OPTOUT: true
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: '6.0.x'
+          include-prerelease: true
+
+      - uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: '3.1.x'
+
+      - name: Update submodules
+        run: git submodule update --init --recursive
+
+      - name: Restore cake tool
+        run: dotnet tool restore
+
+      - name: Build
+        run: |
+          dotnet cake --build-target=Build
+
+      - name: Retrieve iOS Artifacts
+        uses: actions/download-artifact@v2
+        with:
+          name: temp-ios-artifacts
+          path: Artifacts/Release/net6.0-ios
+
+      - name: Pack
+        run: |
+          dotnet cake --build-target=Pack
+
+      - uses: actions/upload-artifact@v2
+        with:
+          name: FNA-NET Artifacts
+          path: Artifacts/Release/*.nupkg

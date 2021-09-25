@@ -26,6 +26,9 @@
     <file src="..\Artifacts\Release\net6.0\FNA.NET.dll" target="lib/net6.0" />
     <file src="..\Artifacts\Release\net6.0\FNA.NET.pdb" target="lib/net6.0" />
 
+    <file src="..\Artifacts\Release\net6.0-windows\FNA.NET.dll" target="lib/net6.0-windows7.0" />
+    <file src="..\Artifacts\Release\net6.0-windows\FNA.NET.pdb" target="lib/net6.0-windows7.0" />
+
     <file src="..\Artifacts\Release\net6.0-ios\FNA.NET.dll" target="lib/net6.0-ios13.6" />
     <file src="..\Artifacts\Release\net6.0-ios\FNA.NET.pdb" target="lib/net6.0-ios13.6" />
 
