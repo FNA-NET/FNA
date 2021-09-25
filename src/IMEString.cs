@@ -1,4 +1,5 @@
 using System;
+using System.Text;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -194,6 +195,26 @@ namespace Microsoft.Xna.Framework
             }
 
             _size = i;
+        }
+
+        /// <summary>
+        /// Construct a IME string from a utf8 text buffer.
+        /// </summary>
+        public unsafe IMEString(byte* utf8Buffer)
+        {
+            int byteCount;
+            byte* ptr = utf8Buffer;
+            for (byteCount = 0; *ptr != 0; ptr += 1, byteCount += 1);
+
+            if (utf8Buffer == default || byteCount == 0)
+            {
+                _size = 0;
+                return;
+            }
+
+
+            fixed (char* _ptr = buffer)
+                _size = Encoding.UTF8.GetChars(utf8Buffer, byteCount, _ptr, IMECharBufferSize);
         }
 
         /// <summary>

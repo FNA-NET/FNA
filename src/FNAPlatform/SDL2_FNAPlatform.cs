@@ -1129,11 +1129,10 @@ namespace Microsoft.Xna.Framework
 					// Mimic a CompositionEnd event
 					sdlImeHandler?.OnTextComposition(IMEString.Empty, 0);
 
-					// Based on the SDL2# LPUtf8StrMarshaler
 					unsafe
 					{
 						if (sdlImeHandler != null)
-							foreach (var c in SDLBufferToIMEString(evt.text.text)) // This way to support emoji.
+							foreach (var c in new IMEString(evt.text.text)) // This way to support emoji.
 								sdlImeHandler.OnTextInput(c, KeyboardUtil.ToXna(c));
 					}
 				}
@@ -1144,7 +1143,7 @@ namespace Microsoft.Xna.Framework
 					{
 						if (sdlImeHandler != null)
 						{
-							var compositionText = SDLBufferToIMEString(evt.edit.text);
+							var compositionText = new IMEString(evt.edit.text);
 							var cursorPosition = evt.edit.start;
 							sdlImeHandler?.OnTextComposition(compositionText, cursorPosition);
 						}
@@ -1167,33 +1166,6 @@ namespace Microsoft.Xna.Framework
 					sdlImeHandler?.OnTextInput(c, KeyboardUtil.ToXna(c));
 				}
 			}
-		}
-
-		const int BufferSize = 1024;
-		static byte[] InputByteBuffer = new byte[BufferSize];
-		static int InputByteCount;
-		static char[] InputCharBuffer = new char[BufferSize / 2];
-		static int InputCharCount;
-
-		static unsafe IMEString SDLBufferToIMEString(byte* text, int maxSize = 128)
-		{
-			Array.Clear(InputByteBuffer, 0, InputByteCount);
-
-			InputByteCount = 0;
-			for (int i = 0; i < maxSize; i++)
-			{
-				if (text[i] == 0)
-					break;
-
-				InputByteBuffer[i] = text[i];
-				InputByteCount++;
-			}
-
-			Array.Clear(InputCharBuffer, 0, InputCharCount);
-
-			InputCharCount = System.Text.Encoding.UTF8.GetChars(InputByteBuffer, 0, InputByteCount, InputCharBuffer, 0);
-
-			return new IMEString(InputCharBuffer, InputCharCount);
 		}
 
 		public static bool NeedsPlatformMainLoop()
