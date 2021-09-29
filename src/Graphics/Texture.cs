@@ -99,6 +99,11 @@ namespace Microsoft.Xna.Framework.Graphics
 					return 8;
 				case SurfaceFormat.Vector4:
 					return 16;
+				case SurfaceFormat.Rgb8Etc2:
+				case SurfaceFormat.Rgb8A1Etc2:
+					return 8;
+				case SurfaceFormat.Rgba8Etc2:
+					return 16;
 				default:
 					throw new ArgumentException("Should be a value defined in SurfaceFormat", "Format");
 			}

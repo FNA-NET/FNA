@@ -221,7 +221,10 @@ namespace Microsoft.Xna.Framework.Graphics
 				SurfaceFormat.HalfSingle,
 				SurfaceFormat.HalfVector2,
 				SurfaceFormat.HalfVector4,
-				SurfaceFormat.HdrBlendable
+				SurfaceFormat.HdrBlendable,
+				SurfaceFormat.Rgb8Etc2,
+				SurfaceFormat.Rgb8A1Etc2,
+				SurfaceFormat.Rgba8Etc2,
 			};
 			HiDef.ValidCubeFormats = new List<SurfaceFormat>()
 			{

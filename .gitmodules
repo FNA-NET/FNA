@@ -3,7 +3,7 @@
 	url = git://github.com/flibitijibibo/SDL2-CS.git
 [submodule "lib/FAudio"]
 	path = lib/FAudio
-	url = git://github.com/FNA-XNA/FAudio.git
+	url = git://github.com/FNA-NET/FAudio.git
 [submodule "lib/FNA3D"]
 	path = lib/FNA3D
 	url = git://github.com/FNA-NET/FNA3D.git

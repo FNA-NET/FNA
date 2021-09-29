@@ -98,5 +98,17 @@ namespace Microsoft.Xna.Framework.Graphics
 		/// Unsigned 32-bit ABGR pixel format for store 8 bits per channel (XNA3)
 		/// </summary>
 		ColorBgraEXT,
+		/// <summary>
+		/// RGB ETC2
+		/// </summary>
+		Rgb8Etc2,
+		/// <summary>
+		/// RGB ETC2 with punch-through alpha
+		/// </summary>
+		Rgb8A1Etc2,
+		/// <summary>
+		/// RGBA ETC2
+		/// </summary>
+		Rgba8Etc2,
 	}
 }
