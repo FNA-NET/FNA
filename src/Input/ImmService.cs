@@ -55,6 +55,7 @@ namespace Microsoft.Xna.Framework
         /// </summary>
         public abstract event EventHandler<TextInputEventArgs> TextInput;
 
+#if NET
         /// <summary>
         /// The candidate text list for the current composition.
         /// This property is only supported on Windows.
@@ -67,5 +68,6 @@ namespace Microsoft.Xna.Framework
         /// The selected candidate index.
         /// </summary>
         public virtual int CandidateSelection { get; }
+#endif
     }
 }
