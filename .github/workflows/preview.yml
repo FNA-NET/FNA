@@ -33,7 +33,7 @@ jobs:
 
       - name: Install dotnet workloads
         run: |
-          dotnet workload install ios --skip-manifest-update
+          dotnet workload install android ios --skip-manifest-update
 
       - name: Build
         run: |
@@ -56,6 +56,11 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
+      - uses: actions/setup-java@v2
+        with:
+          distribution: 'temurin'
+          java-version: '11'
+
       - uses: actions/setup-dotnet@v1
         with:
           dotnet-version: '6.0.x'
@@ -70,6 +75,10 @@ jobs:
 
       - name: Restore cake tool
         run: dotnet tool restore
+
+      - name: Install dotnet android workload
+        run: |
+          dotnet workload install android --skip-manifest-update
 
       - name: Build
         run: |

@@ -5,18 +5,23 @@
     <AssemblyName>FNA.NET</AssemblyName>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <BaseOutputPath>..\Artifacts</BaseOutputPath>
+    <NoWarn>$(NoWarn);CS1572;CS1570;</NoWarn>
   </PropertyGroup>
 
   <PropertyGroup Condition="$([MSBuild]::IsOSPlatform('windows'))">
-    <TargetFrameworks>netstandard2.0;net6.0;net6.0-windows</TargetFrameworks>
+    <TargetFrameworks>netstandard2.0;net6.0;net6.0-windows;net6.0-android</TargetFrameworks>
   </PropertyGroup>
 
   <PropertyGroup Condition="$([MSBuild]::IsOSPlatform('osx'))">
-    <TargetFrameworks>netstandard2.0;net6.0;net6.0-ios</TargetFrameworks>
+    <TargetFrameworks>netstandard2.0;net6.0;net6.0-ios;net6.0-android</TargetFrameworks>
   </PropertyGroup>
 
   <PropertyGroup Condition="$([MSBuild]::IsOSPlatform('Linux'))">
     <TargetFrameworks>netstandard2.0;net6.0</TargetFrameworks>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(TargetFramework)' == 'net6.0-android'">
+    <SupportedOSPlatformVersion>21</SupportedOSPlatformVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(TargetFramework)' == 'net6.0-ios'">
@@ -47,6 +52,7 @@
   <Import Project="FNA-NET.Theorafile.targets" />
 
   <Import Project="FNA-NET.iOS.targets" />
+  <Import Project="FNA-NET.Android.targets" />
 
   <ItemGroup>
     <EmbeddedResource Include="Graphics\Effect\StockEffects\FXB\AlphaTestEffect.fxb">

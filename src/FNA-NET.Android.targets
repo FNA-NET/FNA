@@ -1,0 +1,25 @@
+<Project>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'net6.0-android'">
+    <EmbeddedNativeLibrary Include="..\runtimes\FAudio\android\arm64-v8a\libFAudio.so" Link="libs\arm64-v8a\libFAudio.so" />
+    <EmbeddedNativeLibrary Include="..\runtimes\FAudio\android\x86_64\libFAudio.so" Link="libs\x86_64\libFAudio.so" />
+
+    <EmbeddedNativeLibrary Include="..\runtimes\FNA3D\android\arm64-v8a\libFNA3D.so" Link="libs\arm64-v8a\libFNA3D.so" />
+    <EmbeddedNativeLibrary Include="..\runtimes\FNA3D\android\x86_64\libFNA3D.so" Link="libs\x86_64\libFNA3D.so" />
+
+    <EmbeddedNativeLibrary Include="..\runtimes\Theorafile\android\arm64-v8a\libtheorafile.so" Link="libs\arm64-v8a\libtheorafile.so" />
+    <EmbeddedNativeLibrary Include="..\runtimes\Theorafile\android\x86_64\libtheorafile.so" Link="libs\x86_64\libtheorafile.so" />
+
+    <EmbeddedNativeLibrary Include="..\runtimes\SDL2\android\arm64-v8a\libSDL2.so" Link="libs\arm64-v8a\libSDL2.so" />
+    <EmbeddedNativeLibrary Include="..\runtimes\SDL2\android\arm64-v8a\libmain.so" Link="libs\arm64-v8a\libmain.so" />
+    <EmbeddedNativeLibrary Include="..\runtimes\SDL2\android\arm64-v8a\libhidapi.so" Link="libs\arm64-v8a\libhidapi.so" />
+    <EmbeddedNativeLibrary Include="..\runtimes\SDL2\android\x86_64\libSDL2.so" Link="libs\x86_64\libSDL2.so" />
+    <EmbeddedNativeLibrary Include="..\runtimes\SDL2\android\x86_64\libmain.so" Link="libs\x86_64\libmain.so" />
+    <EmbeddedNativeLibrary Include="..\runtimes\SDL2\android\x86_64\libhidapi.so" Link="libs\x86_64\libhidapi.so" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'net6.0-android'">
+    <PackageReference Include="SDL2DroidSharp-JBindings" Version="1.0.0" />
+  </ItemGroup>
+
+</Project>

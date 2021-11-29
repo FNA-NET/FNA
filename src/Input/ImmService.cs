@@ -60,7 +60,6 @@ namespace Microsoft.Xna.Framework
         /// The candidate text list for the current composition.
         /// This property is only supported on Windows.
         /// If the composition string does not generate candidates this array is empty.
-        /// NOTE This array is fixed size of 16. Use <see cref="CandidatePageSize"/> to get actual canddiate size.
         /// </summary>
         public virtual ReadOnlySpan<IMEString> CandidateList() { return ReadOnlySpan<IMEString>.Empty; }
 
