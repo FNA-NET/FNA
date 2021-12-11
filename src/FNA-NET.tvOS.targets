@@ -1,0 +1,30 @@
+<Project>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'net6.0-tvos'">
+    <NativeReference Include="..\runtimes\FAudio\ios\FAudio.xcframework">
+      <Kind>Static</Kind>
+      <SmartLink>False</SmartLink>
+      <ForceLoad>True</ForceLoad>
+      <Frameworks>AVFoundation AudioToolbox CoreGraphics Metal QuartzCore OpenGLES GameController CoreBluetooth MobileCoreServices ImageIO</Frameworks>
+    </NativeReference>
+    <NativeReference Include="..\runtimes\FNA3D\ios\FNA3D.xcframework">
+      <Kind>Static</Kind>
+      <SmartLink>False</SmartLink>
+      <ForceLoad>True</ForceLoad>
+    </NativeReference>
+    <NativeReference Include="..\runtimes\SDL2\ios\SDL2.xcframework">
+      <Kind>Static</Kind>
+      <SmartLink>False</SmartLink>
+      <ForceLoad>True</ForceLoad>
+    </NativeReference>
+    <NativeReference Include="..\runtimes\Theorafile\ios\theorafile.xcframework">
+      <Kind>Static</Kind>
+      <SmartLink>False</SmartLink>
+      <ForceLoad>True</ForceLoad>
+    </NativeReference>
+
+    <ObjcBindingApiDefinition Include="DummyApiDefinition.cs" />
+    <ObjcBindingCoreSource Include="**\*.cs" Exclude="obj\**\*.cs" />
+  </ItemGroup>
+
+</Project>

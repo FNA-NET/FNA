@@ -13,7 +13,7 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="$([MSBuild]::IsOSPlatform('osx'))">
-    <TargetFrameworks>netstandard2.0;net6.0;net6.0-ios;net6.0-android</TargetFrameworks>
+    <TargetFrameworks>netstandard2.0;net6.0;net6.0-ios;net6.0-tvos;net6.0-android</TargetFrameworks>
   </PropertyGroup>
 
   <PropertyGroup Condition="$([MSBuild]::IsOSPlatform('Linux'))">
@@ -24,7 +24,7 @@
     <SupportedOSPlatformVersion>21</SupportedOSPlatformVersion>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(TargetFramework)' == 'net6.0-ios'">
+  <PropertyGroup Condition="'$(TargetFramework)' == 'net6.0-ios' or '$(TargetFramework)' == 'net6.0-tvos'">
     <IsBindingProject>true</IsBindingProject>
     <NoBindingEmbedding>true</NoBindingEmbedding>
     <SupportedOSPlatformVersion>11.0</SupportedOSPlatformVersion>
@@ -53,6 +53,7 @@
   <Import Project="FNA-NET.Theorafile.targets" />
 
   <Import Project="FNA-NET.iOS.targets" />
+  <Import Project="FNA-NET.tvOS.targets" />
   <Import Project="FNA-NET.Android.targets" />
 
   <ItemGroup>

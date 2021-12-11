@@ -30,6 +30,9 @@
   </metadata>
 
   <files>
+    <file src="build\FNA.NET.targets" target="build/net6.0-ios15.0/FNA.NET.targets" />
+    <file src="build\FNA.NET.targets" target="build/net6.0-tvos15.0/FNA.NET.targets" />
+
     <file src="..\Artifacts\Release\netstandard2.0\FNA.NET.dll" target="lib/netstandard2.0" />
     <file src="..\Artifacts\Release\netstandard2.0\FNA.NET.pdb" target="lib/netstandard2.0" />
 
@@ -41,7 +44,10 @@
 
     <file src="..\Artifacts\Release\net6.0-ios\FNA.NET.dll" target="lib/net6.0-ios15.0" />
     <file src="..\Artifacts\Release\net6.0-ios\FNA.NET.pdb" target="lib/net6.0-ios15.0" />
-    <file src="..\Artifacts\Release\net6.0-ios\FNA.NET.resources\**\*.*" target="lib/net6.0-ios15.0" />
+    <file src="..\Artifacts\Release\net6.0-tvos\FNA.NET.dll" target="lib/net6.0-tvos15.0" />
+    <file src="..\Artifacts\Release\net6.0-tvos\FNA.NET.pdb" target="lib/net6.0-tvos15.0" />
+
+    <file src="..\Artifacts\Release\net6.0-ios\FNA.NET.resources\**\*.*" target="content/res" />
 
     <file src="..\Artifacts\Release\net6.0-android\FNA.NET.dll" target="lib/net6.0-android31.0" />
     <file src="..\Artifacts\Release\net6.0-android\FNA.NET.aar" target="lib/net6.0-android31.0" />
