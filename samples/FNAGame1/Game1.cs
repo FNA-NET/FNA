@@ -64,6 +64,7 @@ public class Game1 : Game
 	{
 		// Create the batch...
 		_batch = new SpriteBatch(GraphicsDevice);
+		_sdfShapeBatch = new SdfShapeBatch(GraphicsDevice);
 
 		// ... then load a texture from ./Content/FNATexture.png
 		_texture1 = Content.Load<Texture2D>("Image1");
@@ -80,6 +81,7 @@ public class Game1 : Game
 	}
 
 	private SpriteBatch _batch;
+	private SdfShapeBatch _sdfShapeBatch;
 	private Texture2D _texture1;
 	private SoundEffect _sound;
 	private KeyboardState _keyboardPrev = new KeyboardState();
@@ -111,6 +113,24 @@ public class Game1 : Game
 			rasterizerState: RasterizerState.CullCounterClockwise);
 		_batch.Draw(_texture1, Vector2.Zero, Color.White);
 		_batch.End();
+
+		_sdfShapeBatch.Begin();
+
+		_sdfShapeBatch.DrawCircle(new Vector2(190, 270), 10, Color.Black, Color.Orange, 2f);
+		_sdfShapeBatch.DrawCircle(new Vector2(220, 270), 10, Color.Black, Color.Red, 2f);
+
+		_sdfShapeBatch.DrawRectangle(new Vector2(235, 500), new Vector2(125, 40), Color.Red, Color.Green);
+		_sdfShapeBatch.FillRectangle(new Vector2(235, 500 + 45), new Vector2(125, 40), Color.Green);
+		_sdfShapeBatch.BorderRectangle(new Vector2(235, 500 + 45 * 2), new Vector2(125, 40), Color.Green);
+
+		_sdfShapeBatch.DrawLine(new Vector2(235, 640), new Vector2(300, 640), 2, Color.Red, Color.Green);
+		_sdfShapeBatch.FillLine(new Vector2(235, 650), new Vector2(300, 650), 2, Color.Green);
+		_sdfShapeBatch.BorderLine(new Vector2(235, 660), new Vector2(300, 660), 2, Color.Green);
+
+		_sdfShapeBatch.FillLine(new Vector2(235, 670), new Vector2(300, 670), 0, Color.Green);
+		_sdfShapeBatch.DrawLine(new Vector2(235, 680), new Vector2(300, 680), 0, Color.Green, Color.Green);
+
+		_sdfShapeBatch.End();
 
 		base.Draw(gameTime);
 	}

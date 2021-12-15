@@ -78,6 +78,9 @@
     <EmbeddedResource Include="Graphics\Effect\YUVToRGBA\YUVToRGBAEffect.fxb">
       <LogicalName>Microsoft.Xna.Framework.Graphics.Effect.Resources.YUVToRGBAEffect.fxb</LogicalName>
     </EmbeddedResource>
+    <EmbeddedResource Include="Graphics\Effect\StockEffects\FXB\SdfShapeEffect.fxb">
+      <LogicalName>Microsoft.Xna.Framework.Graphics.Effect.Resources.SdfShapeEffect.fxb</LogicalName>
+    </EmbeddedResource>
   </ItemGroup>
 
 </Project>

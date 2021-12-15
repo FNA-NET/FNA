@@ -102,6 +102,19 @@ namespace Microsoft.Xna.Framework.Graphics
 			}
 		}
 
+		public static byte[] SdfShapeEffect
+		{
+			get
+			{
+				if (sdfShapeEffect == null)
+				{
+					sdfShapeEffect = GetResource("SdfShapeEffect");
+				}
+				return sdfShapeEffect;
+			}
+		}
+
+
 		#endregion
 
 		#region Private Static Variables
@@ -113,6 +126,7 @@ namespace Microsoft.Xna.Framework.Graphics
 		private static byte[] skinnedEffect;
 		private static byte[] spriteEffect;
 		private static byte[] yuvToRGBAEffect;
+		private static byte[] sdfShapeEffect;
 
 		#endregion
 
