@@ -391,4 +391,23 @@
 	<PackageReference Include="FNA.NET.NativeAssets" Version="1.0.0.2403" />
   </ItemGroup>
 
+  <PropertyGroup>
+    <PackageProjectUrl>https://github.com/FNA-NET/FNA</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/FNA-NET/FNA</RepositoryUrl>
+    <Authors>flibitijibibo,TheSpydog,ryancheung</Authors>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <Description>Fork of FNA with nuget packages.</Description>
+    <PackageTags>fna;xna;net8</PackageTags>
+    <PackageId>FNA.NET</PackageId>
+    <Copyright>Copyright 2024 FNA-NET</Copyright>
+	<VersionPrefix>1.0.0.2403</VersionPrefix>
+    <VersionSuffix></VersionSuffix>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="README.md" Pack="true" PackagePath="\"/>
+    <None Include="licenses/LICENSE" Pack="true" PackagePath="\"/>
+  </ItemGroup>
+
 </Project>
