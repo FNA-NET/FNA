@@ -1,0 +1,21 @@
+name: CI
+
+on: [push, pull_request]
+
+jobs:
+  windows:
+    name: Windows
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        submodules: true
+
+    - name: Install workloads
+      run: |
+        dotnet workload install android ios tvos
+
+    - name: dotnet build FNA-NET
+      run: |
+        dotnet build -c Debug FNA-NET.csproj
+        dotnet build -c Release FNA-NET.csproj
