@@ -101,6 +101,9 @@ namespace Microsoft.Xna.Framework
 			window = nativeWindow;
 			deviceName = display;
 			wantsFullscreen = false;
+#if WINDOWS7_0_OR_GREATER
+			Input.TextInputEXT.AdvancedImeInit(nativeWindow);
+#endif
 		}
 
 		#endregion
