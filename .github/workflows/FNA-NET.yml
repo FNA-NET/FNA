@@ -13,7 +13,7 @@ jobs:
 
     - name: Install workloads
       run: |
-        dotnet workload install android ios tvos
+        dotnet workload install android ios tvos --skip-manifest-update
 
     - name: dotnet build FNA-NET
       run: |
