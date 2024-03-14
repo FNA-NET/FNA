@@ -367,6 +367,9 @@
 		</EmbeddedResource>
 	</ItemGroup>
 
+  <PropertyGroup>
+    <NoWarn>$(NoWarn);CS1572;CS1570;CS0436;CA2255</NoWarn>
+  </PropertyGroup>
 
   <PropertyGroup Condition="'$(TargetFramework)' == 'net8.0-android'">
     <SupportedOSPlatformVersion>21</SupportedOSPlatformVersion>
