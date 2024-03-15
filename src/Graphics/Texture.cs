@@ -110,6 +110,9 @@ namespace Microsoft.Xna.Framework.Graphics
 				case SurfaceFormat.Dxt5SrgbEXT:
 				case SurfaceFormat.Bc7EXT:
 				case SurfaceFormat.Bc7SrgbEXT:
+				case SurfaceFormat.Rgb8Etc2:
+				case SurfaceFormat.Rgb8A1Etc2:
+				case SurfaceFormat.Rgba8Etc2:
 					return 16;
 				case SurfaceFormat.Alpha8:
 				case SurfaceFormat.Bgr565:
@@ -171,6 +174,11 @@ namespace Microsoft.Xna.Framework.Graphics
 				case SurfaceFormat.HdrBlendable:
 					return 8;
 				case SurfaceFormat.Vector4:
+					return 16;
+				case SurfaceFormat.Rgb8Etc2:
+				case SurfaceFormat.Rgb8A1Etc2:
+					return 8;
+				case SurfaceFormat.Rgba8Etc2:
 					return 16;
 				default:
 					throw new ArgumentException("Should be a value defined in SurfaceFormat", "Format");
