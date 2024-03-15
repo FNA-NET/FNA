@@ -341,6 +341,7 @@
 		<Compile Include="lib\Theorafile\csharp\Theorafile.cs" />
 		<Compile Include="src\Input\InputEventEXT.cs" />
 		<Compile Include="src\Input\KeysHelper.cs" />
+		<Compile Include="src\Input\MouseCursorEXT.cs" />
 	</ItemGroup>
 	<ItemGroup>
 		<None Include="app.config" />
