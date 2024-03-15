@@ -343,6 +343,7 @@
 		<Compile Include="src\Input\KeysHelper.cs" />
 		<Compile Include="src\Input\MouseCursorEXT.cs" />
 		<Compile Include="src\GameWindowEXT.cs" />
+		<Compile Include="src\Android\AndroidGameActivityEXT.cs" />
 	</ItemGroup>
 	<ItemGroup>
 		<None Include="app.config" />
