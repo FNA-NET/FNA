@@ -342,6 +342,7 @@
 		<Compile Include="src\Input\InputEventEXT.cs" />
 		<Compile Include="src\Input\KeysHelper.cs" />
 		<Compile Include="src\Input\MouseCursorEXT.cs" />
+		<Compile Include="src\GameWindowEXT.cs" />
 	</ItemGroup>
 	<ItemGroup>
 		<None Include="app.config" />
