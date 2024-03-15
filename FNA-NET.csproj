@@ -389,7 +389,7 @@
   </ItemGroup>
 
   <ItemGroup Condition="'$(TargetFramework)' == 'net8.0-android'">
-    <PackageReference Include="SDL2DroidSharp-JBindings" Version="1.0.2" />
+    <PackageReference Include="SDL2DroidSharp-JBindings" Version="1.0.3" />
   </ItemGroup>
 
   <ItemGroup>
