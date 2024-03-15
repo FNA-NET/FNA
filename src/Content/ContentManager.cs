@@ -296,6 +296,14 @@ namespace Microsoft.Xna.Framework.Content
 				}
 			}
 
+#if ANDROID
+			var inputStream = ((Android.Runtime.InputStreamInvoker) stream).BaseInputStream;
+			var s = new MemoryStream();
+			stream.CopyTo(s);
+			stream = s;
+			stream.Seek(0, SeekOrigin.Begin);
+#endif
+
 			// Check for XNB header
 			stream.Read(xnbHeader, 0, xnbHeader.Length);
 			if (	xnbHeader[0] == 'X' &&
@@ -593,6 +601,15 @@ namespace Microsoft.Xna.Framework.Content
 			{
 				// Concatenate the file name with valid extensions.
 				string fileNamePlusExt = fileName + ext;
+
+#if ANDROID
+				try
+				{
+					return TitleContainer.OpenStream(fileNamePlusExt);
+				}
+				catch (Exception) { return null; }
+#endif
+
 				if (File.Exists(fileNamePlusExt))
 				{
 					return TitleContainer.OpenStream(fileNamePlusExt);
