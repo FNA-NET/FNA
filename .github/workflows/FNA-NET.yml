@@ -15,7 +15,13 @@ jobs:
       run: |
         dotnet workload install android ios tvos --skip-manifest-update
 
-    - name: dotnet build FNA-NET
+    - name: dotnet build and pack FNA-NET
       run: |
         dotnet build -c Debug FNA-NET.csproj
-        dotnet build -c Release FNA-NET.csproj
+        dotnet pack FNA-NET.csproj
+
+    - uses: actions/upload-artifact@v4
+      with:
+        name: ${{ github.event.repository.name }} Artifacts
+        path: |
+          bin/Release/*.nupkg
