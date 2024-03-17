@@ -248,32 +248,32 @@ namespace Microsoft.Xna.Framework.Input
 		/// <summary>
 		/// Gets or sets a value indicating whether the event was handled.
 		/// </summary>
-		public bool Handled { get; set; }
+		public bool Handled;
 
 		/// <summary>
 		/// Gets the keyboard code for a KeyDown or KeyUp event.
 		/// </summary>
-		public Keys Key { get; private set; }
+		public Keys Key;
 
 		/// <summary>
 		/// Gets a value indicating whether the ALT key was pressed.
 		/// </summary>
-		public bool Alt { get; private set; }
+		public bool Alt;
 
 		/// <summary>
 		/// Gets a value indicating whether the CTRL key was pressed.
 		/// </summary>
-		public bool Control { get; private set; }
+		public bool Control;
 
 		/// <summary>
 		/// Gets a value indicating whether the SHIFT key was pressed.
 		/// </summary>
-		public bool Shift { get; private set; }
+		public bool Shift;
 
 		/// <summary>
 		/// Gets a value indicating whether the GUI key(often the Windows key) was pressed.
 		/// </summary>
-		public bool Gui { get; private set; }
+		public bool Gui;
 	}
 
 	/// <summary>
@@ -293,17 +293,17 @@ namespace Microsoft.Xna.Framework.Input
 		/// <summary>
 		/// Gets or sets a value indicating whether the event was handled.
 		/// </summary>
-		public bool Handled { get; set; }
+		public bool Handled;
 
 		/// <summary>
 		/// Gets the Key for a KeyPress event.
 		/// </summary>
-		public Keys Key { get; private set; }
+		public Keys Key;
 
 		/// <summary>
 		/// Gets the keyboard code for a KeyPress event.
 		/// </summary>
-		public char KeyChar { get; set; }
+		public char KeyChar;
 	}
 
 	/// <summary>
@@ -352,31 +352,31 @@ namespace Microsoft.Xna.Framework.Input
 		/// </summary>
 		/// <value>The pointer id.</value>
 		/// <remarks>The default mouse pointer will always be affected to the PointerId 0. On a tablet, a pen or each fingers will get a unique identifier.</remarks>
-		public int PointerId { get; internal set; }
+		public int PointerId;
 
 		/// <summary>
 		/// The <see cref="InputButton"/> for this event.
 		/// </summary>
-		public InputButton Button { get; internal set; }
+		public InputButton Button;
 
 		/// <summary>
 		/// The last time a click event was sent. Used for double click.
 		/// </summary>
-		public DateTime ClickTime { get; internal set; }
+		public DateTime ClickTime;
 
 		/// <summary>
 		/// Pointer delta since last update.
 		/// </summary>
-		public Vector2 Delta { get; internal set; }
+		public Vector2 Delta;
 
 		/// <summary>
 		/// Gets the screen position of the pointer.
 		/// </summary>
-		public Vector2 Position { get; internal set; }
+		public Vector2 Position;
 
 		/// <summary>
 		/// The amount of scroll since the last update.
 		/// </summary>
-		public Vector2 ScrollDelta { get; internal set; }
+		public Vector2 ScrollDelta;
 	}
 }
