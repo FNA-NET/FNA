@@ -345,7 +345,7 @@
 		<Compile Include="src\GameWindowEXT.cs" />
 		<Compile Include="src\Android\AndroidGameActivityEXT.cs" />
 	</ItemGroup>
-	<ItemGroup>
+	<ItemGroup Condition="'$(TargetFramework)' == 'net8.0' or '$(TargetFramework)' == 'net8.0-windows' or '$(TargetFramework)' == 'netstandard2.0'">
 		<None Include="app.config" />
 	</ItemGroup>
 	<ItemGroup>
@@ -408,6 +408,9 @@
     <Copyright>Copyright 2024 FNA-NET</Copyright>
 	<VersionPrefix>1.0.2.2403</VersionPrefix>
     <VersionSuffix></VersionSuffix>
+    <AddAppConfigToBuildOutputs>true</AddAppConfigToBuildOutputs>
+    <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb;.config</AllowedOutputExtensionsInPackageBuildOutputFolder>
+
   </PropertyGroup>
 
   <ItemGroup>
