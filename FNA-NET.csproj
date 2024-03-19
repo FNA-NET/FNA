@@ -406,7 +406,7 @@
     <PackageTags>fna;xna;net8</PackageTags>
     <PackageId>FNA.NET</PackageId>
     <Copyright>Copyright 2024 FNA-NET</Copyright>
-	<VersionPrefix>1.0.2.2403</VersionPrefix>
+	<VersionPrefix>1.0.3.2403</VersionPrefix>
     <VersionSuffix></VersionSuffix>
     <AddAppConfigToBuildOutputs>true</AddAppConfigToBuildOutputs>
     <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb;.config</AllowedOutputExtensionsInPackageBuildOutputFolder>
