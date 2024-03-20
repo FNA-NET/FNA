@@ -345,8 +345,9 @@
 		<Compile Include="src\GameWindowEXT.cs" />
 		<Compile Include="src\Android\AndroidGameActivityEXT.cs" />
 	</ItemGroup>
-	<ItemGroup Condition="'$(TargetFramework)' == 'net8.0' or '$(TargetFramework)' == 'net8.0-windows' or '$(TargetFramework)' == 'netstandard2.0'">
-		<None Include="app.config" />
+	<ItemGroup>
+		<None Include="app.config" Pack="true" PackagePath="contentFiles/$(AssemblyName).dll.config" />
+		<None Include="FNA.NET.targets" Pack="true" PackagePath="build/FNA.NET.targets;buildTransitive/FNA.NET.targets" />
 	</ItemGroup>
 	<ItemGroup>
 		<EmbeddedResource Include="src\Graphics\Effect\StockEffects\FXB\AlphaTestEffect.fxb">
@@ -408,8 +409,7 @@
     <Copyright>Copyright 2024 FNA-NET</Copyright>
 	<VersionPrefix>1.0.3.2403</VersionPrefix>
     <VersionSuffix></VersionSuffix>
-    <AddAppConfigToBuildOutputs>true</AddAppConfigToBuildOutputs>
-    <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb;.config</AllowedOutputExtensionsInPackageBuildOutputFolder>
+    <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
 
   </PropertyGroup>
 
