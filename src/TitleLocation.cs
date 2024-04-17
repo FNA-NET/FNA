@@ -21,9 +21,6 @@ namespace Microsoft.Xna.Framework
 		{
 			get
 			{
-#if ANDROID
-				return ""; // There's no way to get title location in android.
-#endif
 				return FNAPlatform.TitleLocation;
 			}
 		}

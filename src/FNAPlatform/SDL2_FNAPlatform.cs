@@ -1478,6 +1478,8 @@ namespace Microsoft.Xna.Framework
 					return AppDomain.CurrentDomain.BaseDirectory;
 				}
 			}
+			if (OSVersion.Equals("Android")) // FNA.NET use INTERNAL_STORAGE as base path and assets will be copied there.
+				return Environment.GetFolderPath(Environment.SpecialFolder.Personal);
 			string result = SDL.SDL_GetBasePath();
 			if (string.IsNullOrEmpty(result))
 			{
