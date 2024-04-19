@@ -1039,6 +1039,8 @@ namespace Microsoft.Xna.Framework
 				{
 					// Windows only notices a touch screen once it's touched
 					TouchPanel.TouchDeviceExists = true;
+					// Android only fix SDL.SDL_GetTouchDevice(0) may not return the correct touchID
+					TouchPanel.CurrentTouchDeviceID = evt.tfinger.touchId;
 
 					TouchPanel.INTERNAL_onTouchEvent(
 						(int) evt.tfinger.fingerId,
@@ -2389,10 +2391,9 @@ namespace Microsoft.Xna.Framework
 		public static unsafe void UpdateTouchPanelState()
 		{
 			// Poll the touch device for all active fingers
-			long touchDevice = SDL.SDL_GetTouchDevice(0);
 			for (int i = 0; i < TouchPanel.MAX_TOUCHES; i += 1)
 			{
-				SDL.SDL_Finger* finger = (SDL.SDL_Finger*) SDL.SDL_GetTouchFinger(touchDevice, i);
+				SDL.SDL_Finger* finger = (SDL.SDL_Finger*) SDL.SDL_GetTouchFinger(TouchPanel.CurrentTouchDeviceID, i);
 				if (finger == null)
 				{
 					// No finger found at this index

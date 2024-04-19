@@ -72,6 +72,7 @@ namespace Microsoft.Xna.Framework.Input.Touch
 		#region Internal Static Variables
 
 		internal static bool TouchDeviceExists;
+		internal static long CurrentTouchDeviceID;
 
 		#endregion
 
