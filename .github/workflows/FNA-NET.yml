@@ -20,6 +20,12 @@ jobs:
         dotnet build -c Debug FNA-NET.csproj
         dotnet pack FNA-NET.csproj
 
+    - name: Add msbuild to PATH
+      uses: microsoft/setup-msbuild@v2
+
+    - name: Build UWP
+      run: msbuild FNA-NET.UWP.csproj -t:Restore,Pack /property:Configuration=Release
+
     - uses: actions/upload-artifact@v4
       with:
         name: ${{ github.event.repository.name }} Artifacts
