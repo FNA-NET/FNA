@@ -11,6 +11,7 @@ Android is **supported** with OpenGL only!
    - Windows Direct3D
    - Windows Vulkan
    - Windows OpenGL
+   - Windows Store Apps (UWP)
    - Linux Vulkan
    - Linux OpenGL
    - macOS Vulkan(via MoltenVK)
@@ -18,8 +19,8 @@ Android is **supported** with OpenGL only!
  - Mobile/Tablet Devices
    - iOS/tvOS Vulkan(via MoltenVK)
    - Android OpenGL
-
-**UWP support is removed in favor of GDK.**
+ - Consoles (for registered developers)
+   - Xbox One (via UWP)
 
 ## License
 
