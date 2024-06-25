@@ -117,6 +117,8 @@
 		<Compile Include="src\Content\ContentTypeReader.cs" />
 		<Compile Include="src\Content\ContentTypeReaderManager.cs" />
 		<Compile Include="src\Content\LzxDecoder.cs" />
+		<Compile Include="src\Content\Lz4DecoderStream.cs" />
+		<Compile Include="src\Content\LzxDecoderStream.cs" />
 		<Compile Include="src\Content\ResourceContentManager.cs" />
 		<Compile Include="src\Curve.cs" />
 		<Compile Include="src\CurveContinuity.cs" />
