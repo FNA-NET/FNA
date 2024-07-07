@@ -1294,12 +1294,14 @@ namespace Microsoft.Xna.Framework
 		{
 			if (SDL.SDL_GetPlatform().Equals("Emscripten"))
 			{
+#if !IOS
 				emscriptenGame = game;
 				emscripten_set_main_loop(
 					RunEmscriptenMainLoop,
 					0,
 					1
 				);
+#endif
 			}
 			else
 			{
@@ -1313,6 +1315,7 @@ namespace Microsoft.Xna.Framework
 
 		#region Emscripten Main Loop
 
+#if !IOS
 		private static Game emscriptenGame;
 		private delegate void em_callback_func();
 
@@ -1338,6 +1341,7 @@ namespace Microsoft.Xna.Framework
 				emscripten_cancel_main_loop();
 			}
 		}
+#endif
 
 		#endregion
 

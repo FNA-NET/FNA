@@ -339,9 +339,9 @@
 		<Compile Include="src\Vector2.cs" />
 		<Compile Include="src\Vector3.cs" />
 		<Compile Include="src\Vector4.cs" />
-		<Compile Include="lib\SDL2-CS\src\SDL2.cs" />
-		<Compile Include="lib\FAudio\csharp\FAudio.cs" />
-		<Compile Include="lib\Theorafile\csharp\Theorafile.cs" />
+		<Compile Include="src\Utilities\SDL2.cs" />
+		<Compile Include="src\Utilities\FAudio.cs" />
+		<Compile Include="src\Utilities\Theorafile.cs" />
 		<Compile Include="src\Input\InputEventEXT.cs" />
 		<Compile Include="src\Input\KeysHelper.cs" />
 		<Compile Include="src\Input\MouseCursorEXT.cs" />
