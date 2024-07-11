@@ -396,7 +396,7 @@
   </ItemGroup>
 
   <ItemGroup>
-	<PackageReference Include="FNA.NET.NativeAssets" Version="1.0.5.2403" />
+	<PackageReference Include="FNA.NET.NativeAssets" Version="1.0.6.2403" />
   </ItemGroup>
 
   <PropertyGroup>

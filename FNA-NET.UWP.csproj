@@ -386,7 +386,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-	<PackageReference Include="FNA.NET.NativeAssets.UWP" Version="1.0.0.2403" />
+	<PackageReference Include="FNA.NET.NativeAssets.UWP" Version="1.0.1.2403" />
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform" Version="6.2.14" />
   </ItemGroup>
 
