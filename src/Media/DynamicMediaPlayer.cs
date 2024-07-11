@@ -43,7 +43,8 @@ namespace Microsoft.Xna.Framework.Media
 			set
 			{
 				INTERNAL_isMuted = value;
-				audioStream.Volume = INTERNAL_isMuted ?  0.0f : INTERNAL_volume;
+				if (audioStream != null)
+					audioStream.Volume = INTERNAL_isMuted ?  0.0f : INTERNAL_volume;
 			}
 		}
 
@@ -103,7 +104,8 @@ namespace Microsoft.Xna.Framework.Media
 					0.0f,
 					1.0f
 				);
-				audioStream.Volume = IsMuted ? 0.0f : INTERNAL_volume;
+				if (audioStream != null)
+					audioStream.Volume = IsMuted ? 0.0f : INTERNAL_volume;
 			}
 		}
 
@@ -186,7 +188,8 @@ namespace Microsoft.Xna.Framework.Media
 				return;
 			}
 
-			audioStream.Pause();
+			if (audioStream != null)
+				audioStream.Pause();
 			timer.Stop();
 
 			State = MediaState.Paused;
@@ -240,7 +243,8 @@ namespace Microsoft.Xna.Framework.Media
 				return;
 			}
 
-			audioStream.Resume();
+			if (audioStream != null)
+				audioStream.Resume();
 			timer.Start();
 			State = MediaState.Playing;
 		}
@@ -252,7 +256,8 @@ namespace Microsoft.Xna.Framework.Media
 				return;
 			}
 
-			audioStream.Stop();
+			if (audioStream != null)
+				audioStream.Stop();
 			timer.Stop();
 			timer.Reset();
 
@@ -262,15 +267,6 @@ namespace Microsoft.Xna.Framework.Media
 			}
 
 			State = MediaState.Stopped;
-		}
-
-		public static void GetVisualizationData(VisualizationData data)
-		{
-			FAudio.XNA_GetSongVisualizationData(
-				data.freq,
-				data.samp,
-				VisualizationData.Size
-			);
 		}
 
 		#endregion
@@ -408,6 +404,8 @@ namespace Microsoft.Xna.Framework.Media
 			audioStream = new DynamicSoundEffectInstance(
 				sampleRate, (AudioChannels)channels
 			);
+			audioStream.Volume = INTERNAL_isMuted ?  0.0f : INTERNAL_volume;
+
 			audioStream.BufferNeeded += OnBufferRequest;
 
 			// Fill and queue the buffers.
