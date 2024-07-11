@@ -119,8 +119,6 @@ namespace Microsoft.Xna.Framework.Audio
 			}
 		}
 
-		public static uint DefaultSampleRateEXT = FAudio.FAUDIO_DEFAULT_SAMPLERATE;
-
 		#endregion
 
 		#region Internal Variables
@@ -579,7 +577,7 @@ namespace Microsoft.Xna.Framework.Audio
 					Handle,
 					out MasterVoice,
 					FAudio.FAUDIO_DEFAULT_CHANNELS,
-					DefaultSampleRateEXT,
+					FAudio.FAUDIO_DEFAULT_SAMPLERATE,
 					0,
 					i,
 					IntPtr.Zero

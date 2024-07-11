@@ -10,7 +10,6 @@
 #region Using Statements
 using System;
 using System.Diagnostics;
-using System.Runtime.InteropServices;
 #endregion
 
 namespace Microsoft.Xna.Framework.Media
@@ -381,14 +380,11 @@ namespace Microsoft.Xna.Framework.Media
 			FrameworkDispatcher.ActiveSongChanged = true;
 		}
 
-		[DllImport("FAudio", CallingConvention = CallingConvention.Cdecl)]
-		static extern void XNA_SongInit_EXT(uint defaultSampleRate);
-
 		private static void PlaySong(Song song)
 		{
 			if (!initialized)
 			{
-				XNA_SongInit_EXT(Audio.SoundEffect.DefaultSampleRateEXT);
+				FAudio.XNA_SongInit();
 				initialized =  true;
 			}
 			song.Duration = TimeSpan.FromSeconds(FAudio.XNA_PlaySong(song.handle));
