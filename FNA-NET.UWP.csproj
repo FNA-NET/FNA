@@ -402,7 +402,7 @@
     <PackageTags>fna;xna;uap10.0</PackageTags>
     <PackageId>FNA.NET.UWP</PackageId>
     <Copyright>Copyright 2024 FNA-NET</Copyright>
-	<VersionPrefix>1.0.12.2403</VersionPrefix>
+	<VersionPrefix>1.0.13.2403</VersionPrefix>
     <VersionSuffix></VersionSuffix>
     <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
 
