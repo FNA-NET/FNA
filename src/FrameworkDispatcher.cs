@@ -55,14 +55,17 @@ namespace Microsoft.Xna.Framework
 			}
 
 			Media.MediaPlayer.Update();
+			Media.DynamicMediaPlayer.Update();
 			if (ActiveSongChanged)
 			{
 				Media.MediaPlayer.OnActiveSongChanged();
+				Media.DynamicMediaPlayer.OnActiveSongChanged();
 				ActiveSongChanged = false;
 			}
 			if (MediaStateChanged)
 			{
 				Media.MediaPlayer.OnMediaStateChanged();
+				Media.DynamicMediaPlayer.OnMediaStateChanged();
 				MediaStateChanged = false;
 			}
 
