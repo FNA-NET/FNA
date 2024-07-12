@@ -277,7 +277,8 @@ namespace Microsoft.Xna.Framework.Media
 		{
 			if (	Queue == null ||
 				Queue.ActiveSong == null ||
-				State != MediaState.Playing)
+				State != MediaState.Playing ||
+				(_vorbisReader != null && !_vorbisReader.IsEndOfStream))
 			{
 				// Nothing to do... yet...
 				return;
