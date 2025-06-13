@@ -10,7 +10,7 @@
 namespace Microsoft.Xna.Framework.Graphics
 {
 	/// <summary>
-	/// Defines how <see cref="GraphicsDevice.Present"/> updates the game window.
+	/// Defines how <see cref="GraphicsDevice.Present()"/> updates the game window.
 	/// </summary>
 	public enum PresentInterval
 	{
