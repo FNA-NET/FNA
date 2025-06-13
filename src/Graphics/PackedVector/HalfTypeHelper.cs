@@ -19,7 +19,7 @@ namespace Microsoft.Xna.Framework.Graphics.PackedVector
 		#region Private Struct uif
 
 		[StructLayout(LayoutKind.Explicit)]
-		private struct uif
+		private struct Uif
 		{
 			[FieldOffset(0)]
 			public float f;
@@ -35,7 +35,7 @@ namespace Microsoft.Xna.Framework.Graphics.PackedVector
 
 		internal static ushort Convert(float f)
 		{
-			uif uif = new uif();
+			Uif uif = new Uif();
 			uif.f = f;
 			return Convert(uif.i);
 		}
@@ -122,7 +122,7 @@ namespace Microsoft.Xna.Framework.Graphics.PackedVector
 				rst = (uint) (((((uint) value & 0x8000) << 16) | ((((((uint) value >> 10) & 0x1f) - 15) + 127) << 23)) | (mantissa << 13));
 			}
 
-			uif uif = new uif();
+			Uif uif = new Uif();
 			uif.u = rst;
 			return uif.f;
 		}

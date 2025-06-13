@@ -23,6 +23,9 @@ namespace Microsoft.Xna.Framework.Content
 {
 	public partial class ContentManager : IDisposable
 	{
+		const byte ContentCompressedLzx = 0x80;
+		const byte ContentCompressedLz4 = 0x40;
+
 		#region Public ServiceProvider Property
 
 		public IServiceProvider ServiceProvider
@@ -463,7 +466,9 @@ namespace Microsoft.Xna.Framework.Content
 		{
 			byte version = xnbReader.ReadByte();
 			byte flags = xnbReader.ReadByte();
-			bool compressed = (flags & 0x80) != 0;
+
+			bool compressedLzx = (flags & ContentCompressedLzx) != 0;
+			bool compressedLz4 = (flags & ContentCompressedLz4) != 0;
 			if (version != 5 && version != 4)
 			{
 				throw new ContentLoadException("Invalid XNB version");
@@ -471,91 +476,21 @@ namespace Microsoft.Xna.Framework.Content
 			// The next int32 is the length of the XNB file
 			int xnbLength = xnbReader.ReadInt32();
 			ContentReader reader;
-			if (compressed)
+			if (compressedLzx || compressedLz4)
 			{
-				/* Decompress the XNB
-				 * Thanks to ShinAli (https://bitbucket.org/alisci01/xnbdecompressor)
-				 */
-				int compressedSize = xnbLength - 14;
+				// Decompress the xnb
 				int decompressedSize = xnbReader.ReadInt32();
 
-				// This will replace the XNB stream at the end
-				MemoryStream decompressedStream = new MemoryStream(
-					new byte[decompressedSize],
-					0,
-					decompressedSize,
-					true,
-					true // This MUST be true! Readers may need GetBuffer()!
-				);
-
-				/* Read in the whole XNB file at once, into a temp buffer.
-				 * For slow disks, the extra malloc is more than worth the
-				 * performance improvement from not constantly fread()ing!
-				 */
-				MemoryStream compressedStream = new MemoryStream(
-					new byte[compressedSize],
-					0,
-					compressedSize,
-					true,
-					true
-				);
-				stream.Read(compressedStream.GetBuffer(), 0, compressedSize);
-
-				// Default window size for XNB encoded files is 64Kb (need 16 bits to represent it)
-				LzxDecoder dec = new LzxDecoder(16);
-				int decodedBytes = 0;
-				long pos = 0;
-
-				while (pos < compressedSize)
+				Stream decompressedStream = null;
+				if (compressedLzx)
 				{
-					/* The compressed stream is separated into blocks that will
-					 * decompress into 32kB or some other size if specified.
-					 * Normal, 32kB output blocks will have a short indicating
-					 * the size of the block before the block starts. Blocks
-					 * that have a defined output will be preceded by a byte of
-					 * value 0xFF (255), then a short indicating the output size
-					 * and another for the block size. All shorts for these
-					 * cases are encoded in big endian order.
-					 */
-					int hi = compressedStream.ReadByte();
-					int lo = compressedStream.ReadByte();
-					int block_size = (hi << 8) | lo;
-					int frame_size = 0x8000; // Frame size is 32kB by default
-					// Does this block define a frame size?
-					if (hi == 0xFF)
-					{
-						hi = lo;
-						lo = (byte) compressedStream.ReadByte();
-						frame_size = (hi << 8) | lo;
-						hi = (byte) compressedStream.ReadByte();
-						lo = (byte) compressedStream.ReadByte();
-						block_size = (hi << 8) | lo;
-						pos += 5;
-					}
-					else
-					{
-						pos += 2;
-					}
-					// Either says there is nothing to decode
-					if (block_size == 0 || frame_size == 0)
-					{
-						break;
-					}
-					dec.Decompress(compressedStream, block_size, decompressedStream, frame_size);
-					pos += block_size;
-					decodedBytes += frame_size;
-					/* Reset the position of the input just in case the bit
-					 * buffer read in some unused bytes.
-					 */
-					compressedStream.Seek(pos, SeekOrigin.Begin);
+					int compressedSize = xnbLength - 14;
+					decompressedStream = new LzxDecoderStream(stream, decompressedSize, compressedSize);
 				}
-				if (decompressedStream.Position != decompressedSize)
+				else if (compressedLz4)
 				{
-					throw new ContentLoadException(
-						"Decompression of " + originalAssetName + " failed. "
-					);
+					decompressedStream = new Lz4DecoderStream(stream);
 				}
-				decompressedStream.Seek(0, SeekOrigin.Begin);
 				reader = new ContentReader(
 					this,
 					decompressedStream,
@@ -599,13 +534,13 @@ namespace Microsoft.Xna.Framework.Content
 				}
 			}
 
-			// If we got here, we need to try the slower path :(
+			// If we got here, we need to try the slower path :(. We load android raw assets here :)
 			fileName = MonoGame.Utilities.FileHelpers.NormalizeFilePathSeparators(
-				assetName
+				Path.Combine(RootDirectory, assetName)
 			);
 			try
 			{
-				return OpenStream(fileName);
+				return TitleContainer.OpenStream(fileName);
 			}
 			catch
 			{
@@ -615,7 +550,7 @@ namespace Microsoft.Xna.Framework.Content
 					string fileNamePlusExt = fileName + ext;
 					try
 					{
-						return OpenStream(fileNamePlusExt);
+						return TitleContainer.OpenStream(fileNamePlusExt);
 					}
 					catch
 					{
