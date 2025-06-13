@@ -23,6 +23,10 @@ using System;
 using System.IO;
 #endregion
 
+#if ANDROID
+[assembly:System.Runtime.Versioning.SupportedOSPlatform("Android21.0")]
+#endif
+
 namespace Microsoft.Xna.Framework
 {
 	public static class TitleContainer
@@ -32,6 +36,10 @@ namespace Microsoft.Xna.Framework
 		public static Stream OpenStream(string name)
 		{
 			string safeName = MonoGame.Utilities.FileHelpers.NormalizeFilePathSeparators(name);
+
+#if ANDROID
+			return AndroidOpenStream(safeName);
+#else
 
 #if CASE_SENSITIVITY_HACK
 			if (Path.IsPathRooted(safeName))
@@ -48,6 +56,7 @@ namespace Microsoft.Xna.Framework
 				return File.OpenRead(safeName);
 			}
 			return File.OpenRead(Path.Combine(TitleLocation.Path, safeName));
+#endif
 		}
 
 		#endregion
@@ -141,6 +150,25 @@ namespace Microsoft.Xna.Framework
 #endif
 
 		#endregion
+
+#if ANDROID
+		public static FileStream AndroidOpenStream(string name)
+		{
+			var path = Path.Combine(TitleLocation.Path, name);
+			if (!File.Exists(path))
+			{
+				var inputStream = Android.App.Application.Context.Assets.Open(name);
+
+				Directory.CreateDirectory(Path.GetDirectoryName(path)); // Ensure subdirectories
+				FileStream s = new FileStream(path, FileMode.OpenOrCreate, FileAccess.ReadWrite);
+				inputStream.CopyTo(s);
+				s.Seek(0, SeekOrigin.Begin);
+				return s;
+			}
+			else
+				return File.OpenRead(path);
+		}
+#endif
 	}
 }
 

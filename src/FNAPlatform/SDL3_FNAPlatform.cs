@@ -896,6 +896,7 @@ namespace Microsoft.Xna.Framework
 							TextInputEXT.OnTextInput(FNAPlatform.TextInputCharacters[6]);
 						}
 					}
+					InputEventEXT.OnKeyDown(key, ref evt);
 				}
 				else if (evt.type == (uint) SDL.SDL_EventType.SDL_EVENT_KEY_UP)
 				{
@@ -914,18 +915,29 @@ namespace Microsoft.Xna.Framework
 							textInputSuppress = false;
 						}
 					}
+					InputEventEXT.OnKeyUp(key, ref evt);
 				}
 
 				// Mouse Input
 				else if (evt.type == (uint) SDL.SDL_EventType.SDL_EVENT_MOUSE_BUTTON_DOWN)
 				{
 					Mouse.INTERNAL_onClicked(evt.button.button - 1);
+					InputEventEXT.OnMouseDown(ref evt);
+				}
+				else if (evt.type == (uint)SDL.SDL_EventType.SDL_EVENT_MOUSE_BUTTON_UP)
+				{
+					InputEventEXT.OnMouseUp(ref evt);
+				}
+				else if (evt.type == (uint)SDL.SDL_EventType.SDL_EVENT_MOUSE_MOTION)
+				{
+					InputEventEXT.OnMouseMove(ref evt);
 				}
 				else if (evt.type == (uint) SDL.SDL_EventType.SDL_EVENT_MOUSE_WHEEL)
 				{
 					// FIXME SDL3: Should this be rounded?
 					// 120 units per notch. Because reasons.
 					Mouse.INTERNAL_MouseWheel += (int) evt.wheel.y * 120;
+					InputEventEXT.OnMouseWheel(ref evt);
 				}
 
 				// Touch Input
@@ -942,6 +954,7 @@ namespace Microsoft.Xna.Framework
 						0,
 						0
 					);
+					InputEventEXT.OnFingerDown(ref evt);
 				}
 				else if (evt.type == (uint) SDL.SDL_EventType.SDL_EVENT_FINGER_MOTION)
 				{
@@ -953,6 +966,7 @@ namespace Microsoft.Xna.Framework
 						evt.tfinger.dx,
 						evt.tfinger.dy
 					);
+					InputEventEXT.OnFingerMove(ref evt);
 				}
 				else if (evt.type == (uint) SDL.SDL_EventType.SDL_EVENT_FINGER_UP || evt.type == (uint) SDL.SDL_EventType.SDL_EVENT_FINGER_CANCELED)
 				{
@@ -964,6 +978,7 @@ namespace Microsoft.Xna.Framework
 						0,
 						0
 					);
+					InputEventEXT.OnFingerUp(ref evt);
 				}
 
 				// Various Window Events...
@@ -1429,6 +1444,8 @@ namespace Microsoft.Xna.Framework
 					return AppDomain.CurrentDomain.BaseDirectory;
 				}
 			}
+			if (OSVersion.Equals("Android")) // FNA.NET use INTERNAL_STORAGE as base path and assets will be copied there.
+				return Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
 			string result = SDL.SDL_GetBasePath();
 			if (string.IsNullOrEmpty(result))
 			{

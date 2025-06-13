@@ -37,6 +37,9 @@ namespace Microsoft.Xna.Framework
 			 */
 
 			bool useSDL2 = Environment.GetEnvironmentVariable("FNA_PLATFORM_BACKEND") == "SDL2";
+#if WINDOWS_UAP
+			useSDL2 = true;
+#endif
 
 			if (!useSDL2)
 			{
