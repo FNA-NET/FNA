@@ -34,10 +34,11 @@ Notes:
 | OS                            | Architectures         | Renderer                     |
 | ----------------------------- | --------------------- | ---------------------------- |
 | Windows                       | x64                   | OpenGL, D3D11, D3D12, Vulkan |
-| UWP                           | x64                   | OpenGL, D3D11                |
+| UWP(XBox)                     | x64                   | OpenGL, D3D11                |
 
 Notes:
 
+* There's a seperate package `FNA.NET.UWP` for UWP.
 * UWP is supported through SDL2 and old version fna binaries only! SDL3 has dropped the support of UWP platform.
 
 ### Linux
