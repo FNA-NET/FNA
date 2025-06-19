@@ -2264,7 +2264,7 @@ namespace Microsoft.Xna.Framework
 		{
 			// Poll the touch device for all active fingers
 			int fingers;
-			IntPtr fingerArray = SDL.SDL_GetTouchFingers(GetTouchDeviceId(0), out fingers);
+			IntPtr fingerArray = SDL.SDL_GetTouchFingers(GetFirstPhysicalTouchDeviceId(), out fingers);
 
 			for (int i = 0; i < TouchPanel.MAX_TOUCHES; i += 1)
 			{
@@ -2294,7 +2294,7 @@ namespace Microsoft.Xna.Framework
 		public static int GetNumTouchFingers()
 		{
 			int fingers;
-			SDL.SDL_free(SDL.SDL_GetTouchFingers(GetTouchDeviceId(0), out fingers));
+			SDL.SDL_free(SDL.SDL_GetTouchFingers(GetFirstPhysicalTouchDeviceId(), out fingers));
 			return fingers;
 		}
 
@@ -2305,6 +2305,23 @@ namespace Microsoft.Xna.Framework
 			ulong result = index >= 0 && index < touchDeviceCount ? ((ulong*) touchDeviceIDs)[index] : 0;
 			SDL.SDL_free(touchDeviceIDs);
 			return result;
+		}
+
+		private static unsafe ulong GetFirstPhysicalTouchDeviceId()
+		{
+			int touchDeviceCount;
+			IntPtr touchDeviceIDs = SDL.SDL_GetTouchDevices(out touchDeviceCount);
+			for (int i = 0; i < touchDeviceCount; i++)
+			{
+				var id = GetTouchDeviceId(i);
+				var deviceName = SDL.SDL_GetTouchDeviceName(id);
+				if (string.IsNullOrEmpty(deviceName))
+					return id;
+				if (deviceName.Contains("Virtual") || deviceName.Contains("pen_input"))
+					continue;
+			}
+			SDL.SDL_free(touchDeviceIDs);
+			return 0;
 		}
 
 		#endregion
