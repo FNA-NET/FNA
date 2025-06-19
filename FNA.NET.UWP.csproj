@@ -409,7 +409,7 @@
 		<PackageTags>fna;xna;net8</PackageTags>
 		<PackageId>FNA.NET.UWP</PackageId>
 		<Copyright>Copyright 2025 FNA-NET</Copyright>
-		<VersionPrefix>2.0.0.2506</VersionPrefix>
+		<VersionPrefix>2.0.1.2506</VersionPrefix>
 		<VersionSuffix></VersionSuffix>
 		<AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
 
