@@ -33,8 +33,8 @@ Notes:
 
 | OS                            | Architectures         | Renderer                     |
 | ----------------------------- | --------------------- | ---------------------------- |
-| Windows                       | x64                   | OpenGL, D3D11, D3D12, Vulkan |
-| UWP(XBox)                     | x64                   | OpenGL, D3D11                |
+| Windows                       | x64                   | OpenGL, D3D11, Vulkan        |
+| UWP(XBox)                     | x64                   | D3D11                        |
 
 Notes:
 
