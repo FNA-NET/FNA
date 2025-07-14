@@ -1,12 +1,9 @@
 <Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
-		<TargetFramework>uap10.0</TargetFramework>
-		<DefineConstants>WINDOWS_UAP;</DefineConstants>
-		<TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
-		<TargetPlatformVersion>10.0.19041.0</TargetPlatformVersion>
-		<TargetPlatformMinVersion>10.0.16299.0</TargetPlatformMinVersion>
-		<TargetFrameworkIdentifier>.NETCore</TargetFrameworkIdentifier>
-		<TargetFrameworkVersion>v5.0</TargetFrameworkVersion>
+		<TargetFramework>net9.0-windows10.0.26100.0</TargetFramework>
+		<TargetPlatformMinVersion>10.0.17763.0</TargetPlatformMinVersion>
+		<UseUwp>true</UseUwp>
+		<DisableRuntimeMarshalling>true</DisableRuntimeMarshalling>
 	</PropertyGroup>
 	<PropertyGroup>
 		<EnableDefaultItems>false</EnableDefaultItems>
@@ -394,9 +391,8 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="FNA.NET.NativeAssets.UWP" Version="1.0.6.2403" />
+		<PackageReference Include="FNA.NET.NativeAssets.UWP" Version="1.1.0.2403" />
 		<PackageReference Include="NVorbis" Version="0.10.5" />
-		<PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform" Version="6.2.14" />
 	</ItemGroup>
 
 	<PropertyGroup>
@@ -409,7 +405,7 @@
 		<PackageTags>fna;xna;net8</PackageTags>
 		<PackageId>FNA.NET.UWP</PackageId>
 		<Copyright>Copyright 2025 FNA-NET</Copyright>
-		<VersionPrefix>2.0.1.2506</VersionPrefix>
+		<VersionPrefix>2.1.0.2506</VersionPrefix>
 		<VersionSuffix></VersionSuffix>
 		<AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
 

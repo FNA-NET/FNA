@@ -43,7 +43,7 @@ namespace Microsoft.Xna.Framework.Input
 			get => windowHandle;
 			set
 			{
-#if WINDOWS7_0_OR_GREATER
+#if WINDOWS7_0_OR_GREATER && !WINDOWS10_0_17763_0_OR_GREATER
 				if (value != IntPtr.Zero && windowHandle != value)
 					AdvancedImeInit(value);
 #endif
@@ -65,7 +65,7 @@ namespace Microsoft.Xna.Framework.Input
 		/// <returns>True if text input state is active</returns>
 		public static bool IsTextInputActive()
 		{
-#if WINDOWS7_0_OR_GREATER
+#if WINDOWS7_0_OR_GREATER && !WINDOWS10_0_17763_0_OR_GREATER
 			return ImeSharp.InputMethod.Enabled;
 #else
 			return FNAPlatform.IsTextInputActive(WindowHandle);
@@ -84,7 +84,7 @@ namespace Microsoft.Xna.Framework.Input
 
 		public static void StartTextInput()
 		{
-#if WINDOWS7_0_OR_GREATER
+#if WINDOWS7_0_OR_GREATER && !WINDOWS10_0_17763_0_OR_GREATER
 			// Need to ensure SDL2 text input is stopped
 			FNAPlatform.StopTextInput(WindowHandle);
 			ImeSharp.InputMethod.Enabled = true;
@@ -95,7 +95,7 @@ namespace Microsoft.Xna.Framework.Input
 
 		public static void StopTextInput()
 		{
-#if WINDOWS7_0_OR_GREATER
+#if WINDOWS7_0_OR_GREATER && !WINDOWS10_0_17763_0_OR_GREATER
 			ImeSharp.InputMethod.Enabled = false;
 #else
 			FNAPlatform.StopTextInput(WindowHandle);
@@ -109,7 +109,7 @@ namespace Microsoft.Xna.Framework.Input
 		/// <param name="rectangle">Text input location relative to GameWindow.ClientBounds</param>
 		public static void SetInputRectangle(Rectangle rectangle)
 		{
-#if WINDOWS7_0_OR_GREATER
+#if WINDOWS7_0_OR_GREATER && !WINDOWS10_0_17763_0_OR_GREATER
 			if (ImeSharp.InputMethod.Enabled)
 				ImeSharp.InputMethod.SetTextInputRect(rectangle.X, rectangle.Y, rectangle.Width, rectangle.Height);
 #else
@@ -139,7 +139,7 @@ namespace Microsoft.Xna.Framework.Input
 
 		#endregion
 
-#if WINDOWS7_0_OR_GREATER
+#if WINDOWS7_0_OR_GREATER && !WINDOWS10_0_17763_0_OR_GREATER
 		internal static void AdvancedImeInit(IntPtr sdlWindowHandle)
 		{
 			var windowProps = SDL3.SDL.SDL_GetWindowProperties(sdlWindowHandle);
