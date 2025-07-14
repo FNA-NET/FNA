@@ -9,7 +9,11 @@
 
 #region Using Statements
 using System;
+#if WINDOWS10_0_17763_0_OR_GREATER
+using SDL2;
+#else
 using SDL3;
+#endif
 using Microsoft.Xna.Framework.Graphics;
 using System.Runtime.InteropServices;
 #endregion
@@ -36,6 +40,38 @@ namespace Microsoft.Xna.Framework.Input
 		/// <param name="texture">Texture to use as the cursor image.</param>
 		/// <param name="originx">X cordinate of the image that will be used for mouse position.</param>
 		/// <param name="originy">Y cordinate of the image that will be used for mouse position.</param>
+#if WINDOWS10_0_17763_0_OR_GREATER
+		public static MouseCursor CreateFromTexture2D(Texture2D texture, int originx, int originy)
+		{
+			if (texture.Format != SurfaceFormat.Color)
+				throw new ArgumentException("Only Color textures are accepted for mouse cursors", "texture");
+
+			IntPtr surface = IntPtr.Zero;
+			IntPtr handle = IntPtr.Zero;
+			try
+			{
+				var bytes = new byte[texture.Width * texture.Height * 4];
+				texture.GetData(bytes);
+
+				GCHandle gcHandle = GCHandle.Alloc(bytes, GCHandleType.Pinned);
+				surface = SDL.SDL_CreateRGBSurfaceFrom(gcHandle.AddrOfPinnedObject(), texture.Width, texture.Height, 32, texture.Width * 4, 0x000000ff, 0x0000FF00, 0x00FF0000, 0xFF000000);
+				gcHandle.Free();
+				if (surface == IntPtr.Zero)
+					throw new InvalidOperationException("Failed to create surface for mouse cursor: " + SDL.SDL_GetError());
+
+				handle = SDL.SDL_CreateColorCursor(surface, originx, originy);
+				if (handle == IntPtr.Zero)
+					throw new InvalidOperationException("Failed to set surface for mouse cursor: " + SDL.SDL_GetError());
+			}
+			finally
+			{
+				if (surface != IntPtr.Zero)
+					SDL.SDL_FreeSurface(surface);
+			}
+
+			return new MouseCursor(handle);
+		}
+#else
 		public static MouseCursor CreateFromTexture2D(Texture2D texture, int originx, int originy)
 		{
 			if (texture.Format != SurfaceFormat.Color)
@@ -66,6 +102,7 @@ namespace Microsoft.Xna.Framework.Input
 
 			return new MouseCursor(handle);
 		}
+#endif
 	}
 
 	public class MouseCursor : IDisposable
@@ -136,6 +173,21 @@ namespace Microsoft.Xna.Framework.Input
 
 		static MouseCursor()
 		{
+#if WINDOWS10_0_17763_0_OR_GREATER
+			Arrow = new MouseCursor(SDL.SDL_SystemCursor.SDL_SYSTEM_CURSOR_ARROW);
+			IBeam = new MouseCursor(SDL.SDL_SystemCursor.SDL_SYSTEM_CURSOR_IBEAM);
+			Wait = new MouseCursor(SDL.SDL_SystemCursor.SDL_SYSTEM_CURSOR_WAIT);
+			Crosshair = new MouseCursor(SDL.SDL_SystemCursor.SDL_SYSTEM_CURSOR_CROSSHAIR);
+			WaitArrow = new MouseCursor(SDL.SDL_SystemCursor.SDL_SYSTEM_CURSOR_WAITARROW);
+			SizeNWSE = new MouseCursor(SDL.SDL_SystemCursor.SDL_SYSTEM_CURSOR_SIZENWSE);
+			SizeNESW = new MouseCursor(SDL.SDL_SystemCursor.SDL_SYSTEM_CURSOR_SIZENESW);
+			SizeWE = new MouseCursor(SDL.SDL_SystemCursor.SDL_SYSTEM_CURSOR_SIZEWE);
+			SizeNS = new MouseCursor(SDL.SDL_SystemCursor.SDL_SYSTEM_CURSOR_SIZENS);
+			SizeAll = new MouseCursor(SDL.SDL_SystemCursor.SDL_SYSTEM_CURSOR_SIZEALL);
+			No = new MouseCursor(SDL.SDL_SystemCursor.SDL_SYSTEM_CURSOR_NO);
+			Hand = new MouseCursor(SDL.SDL_SystemCursor.SDL_SYSTEM_CURSOR_HAND);
+#else
+
 			Arrow = new MouseCursor(SDL.SDL_SystemCursor.SDL_SYSTEM_CURSOR_DEFAULT);
 			IBeam = new MouseCursor(SDL.SDL_SystemCursor.SDL_SYSTEM_CURSOR_TEXT);
 			Wait = new MouseCursor(SDL.SDL_SystemCursor.SDL_SYSTEM_CURSOR_WAIT);
@@ -148,6 +200,7 @@ namespace Microsoft.Xna.Framework.Input
 			SizeAll = new MouseCursor(SDL.SDL_SystemCursor.SDL_SYSTEM_CURSOR_MOVE);
 			No = new MouseCursor(SDL.SDL_SystemCursor.SDL_SYSTEM_CURSOR_NOT_ALLOWED);
 			Hand = new MouseCursor(SDL.SDL_SystemCursor.SDL_SYSTEM_CURSOR_POINTER);
+#endif
 		}
 
 		internal MouseCursor(IntPtr handle)
@@ -163,7 +216,11 @@ namespace Microsoft.Xna.Framework.Input
 			if (Handle == IntPtr.Zero)
 				return;
 
+#if WINDOWS10_0_17763_0_OR_GREATER
+			SDL.SDL_FreeCursor(Handle);
+#else
 			SDL.SDL_DestroyCursor(Handle);
+#endif
 			Handle = IntPtr.Zero;
 
 			_disposed = true;
