@@ -1490,6 +1490,43 @@ namespace Microsoft.Xna.Framework.Graphics
 			);
 		}
 
+		public void DrawUserIndexedPrimitivesPointerEXT<T>(
+			PrimitiveType primitiveType,
+			IntPtr vertexData,
+			int vertexOffset,
+			int numVertices,
+			IntPtr indexData,
+			int indexOffset,
+			int primitiveCount
+		) where T : struct, IVertexType {
+			ApplyState();
+
+			PrepareUserVertexBuffer(
+				vertexData,
+				numVertices,
+				vertexOffset,
+				VertexDeclarationCache<T>.VertexDeclaration
+			);
+			PrepareUserIndexBuffer(
+				indexData,
+				PrimitiveVerts(primitiveType, primitiveCount),
+				indexOffset,
+				2
+			);
+
+			FNA3D.FNA3D_DrawIndexedPrimitives(
+				GLDevice,
+				primitiveType,
+				0,
+				0,
+				numVertices,
+				0,
+				primitiveCount,
+				userIndexBuffer,
+				IndexElementSize.SixteenBits
+			);
+		}
+
 		#endregion
 
 		#region DrawPrimitives: Vertex Arrays, No Indices

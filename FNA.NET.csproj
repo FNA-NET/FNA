@@ -426,7 +426,7 @@
 		<PackageTags>fna;xna;net8</PackageTags>
 		<PackageId>FNA.NET</PackageId>
 		<Copyright>Copyright 2025 FNA-NET</Copyright>
-		<VersionPrefix>2.1.1.2506</VersionPrefix>
+		<VersionPrefix>2.1.2.2506</VersionPrefix>
 		<VersionSuffix></VersionSuffix>
 		<AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
 
