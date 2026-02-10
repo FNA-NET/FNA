@@ -2,7 +2,7 @@
     <ItemGroup>
         <Files Include="$(MSBuildThisFileDirectory)/../contentFiles/*.*" />
     </ItemGroup>
-    <Target Name="CopyFiles" AfterTargets="Build" Condition="'$(TargetFramework)' != 'net8.0-android' And '$(TargetFramework)' != 'net8.0-ios' And '$(TargetFramework)' != 'net8.0-tvos'">
+    <Target Name="CopyFiles" AfterTargets="Build" Condition="'$(TargetFramework)' != 'net9.0-android' And '$(TargetFramework)' != 'net9.0-ios' And '$(TargetFramework)' != 'net9.0-tvos'">
         <Copy SourceFiles="@(Files)" DestinationFolder="$(TargetDir)" />
     </Target>
 </Project>

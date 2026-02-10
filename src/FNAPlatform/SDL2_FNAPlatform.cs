@@ -997,7 +997,6 @@ namespace Microsoft.Xna.Framework
 							TextInputEXT.OnTextInput(FNAPlatform.TextInputCharacters[6]);
 						}
 					}
-					InputEventEXT.OnKeyDown(key, ref evt);
 				}
 				else if (evt.type == SDL.SDL_EventType.SDL_KEYUP)
 				{
@@ -1016,28 +1015,23 @@ namespace Microsoft.Xna.Framework
 							textInputSuppress = false;
 						}
 					}
-					InputEventEXT.OnKeyUp(key, ref evt);
 				}
 
 				// Mouse Input
 				else if (evt.type == SDL.SDL_EventType.SDL_MOUSEBUTTONDOWN)
 				{
 					Mouse.INTERNAL_onClicked(evt.button.button - 1);
-					InputEventEXT.OnMouseDown(ref evt);
 				}
 				else if (evt.type == SDL.SDL_EventType.SDL_MOUSEBUTTONUP)
 				{
-					InputEventEXT.OnMouseUp(ref evt);
 				}
 				else if (evt.type == SDL.SDL_EventType.SDL_MOUSEMOTION)
 				{
-					InputEventEXT.OnMouseMove(ref evt);
 				}
 				else if (evt.type == SDL.SDL_EventType.SDL_MOUSEWHEEL)
 				{
 					// 120 units per notch. Because reasons.
 					Mouse.INTERNAL_MouseWheel += evt.wheel.y * 120;
-					InputEventEXT.OnMouseWheel(ref evt);
 				}
 
 				// Touch Input
@@ -1054,7 +1048,6 @@ namespace Microsoft.Xna.Framework
 						0,
 						0
 					);
-					InputEventEXT.OnFingerDown(ref evt);
 				}
 				else if (evt.type == SDL.SDL_EventType.SDL_FINGERMOTION)
 				{
@@ -1066,7 +1059,6 @@ namespace Microsoft.Xna.Framework
 						evt.tfinger.dx,
 						evt.tfinger.dy
 					);
-					InputEventEXT.OnFingerMove(ref evt);
 				}
 				else if (evt.type == SDL.SDL_EventType.SDL_FINGERUP)
 				{
@@ -1078,7 +1070,6 @@ namespace Microsoft.Xna.Framework
 						0,
 						0
 					);
-					InputEventEXT.OnFingerUp(ref evt);
 				}
 
 				// Various Window Events...

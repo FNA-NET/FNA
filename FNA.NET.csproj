@@ -1,13 +1,13 @@
 <Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup Condition="$([MSBuild]::IsOSPlatform('windows'))">
-		<TargetFrameworks>netstandard2.0;net8.0;net8.0-windows;net8.0-android;net8.0-ios;net8.0-tvos</TargetFrameworks>
+		<TargetFrameworks>netstandard2.0;net9.0;net9.0-windows;net9.0-android;net9.0-ios;net9.0-tvos;net9.0-windows10.0.26100.0</TargetFrameworks>
 	</PropertyGroup>
 	<PropertyGroup Condition="$([MSBuild]::IsOSPlatform('osx'))">
-		<TargetFrameworks>netstandard2.0;net8.0;net8.0-windows;net8.0-android;net8.0-ios;net8.0-tvos</TargetFrameworks>
+		<TargetFrameworks>netstandard2.0;net9.0;net9.0-windows;net9.0-android;net9.0-ios;net9.0-tvos</TargetFrameworks>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="$([MSBuild]::IsOSPlatform('Linux'))">
-		<TargetFrameworks>netstandard2.0;net8.0</TargetFrameworks>
+		<TargetFrameworks>netstandard2.0;net9.0</TargetFrameworks>
 	</PropertyGroup>
 
 	<PropertyGroup>
@@ -392,28 +392,39 @@
 		<Compile Include="src\Input\MouseCursorEXT.cs" />
 		<Compile Include="src\Input\KeysHelper.cs" />
 		<Compile Include="src\Input\InputEventEXT.cs" />
-		<Compile Include="src\Input\InputEventEXT_SDL2.cs" />
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="FNA.NET.NativeAssets" Version="2.0.1.2506" />
 		<PackageReference Include="NVorbis" Version="0.10.5" />
 	</ItemGroup>
 
-	<PropertyGroup Condition="'$(TargetFramework)' == 'net8.0-android'">
+	<ItemGroup Condition="'$(TargetFramework)' != 'net9.0-windows10.0.26100.0'">
+		<PackageReference Include="FNA.NET.NativeAssets" Version="2.1.2.2602" />
+	</ItemGroup>
+
+	<ItemGroup Condition="'$(TargetFramework)' == 'net9.0-windows10.0.26100.0'">
+		<PackageReference Include="FNA.NET.NativeAssets.UWP" Version="2.0.0.2602" />
+	</ItemGroup>
+
+	<PropertyGroup Condition="'$(TargetFramework)' == 'net9.0-windows10.0.26100.0'">
+		<TargetPlatformMinVersion>10.0.17763.0</TargetPlatformMinVersion>
+		<UseUwp>true</UseUwp>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(TargetFramework)' == 'net9.0-android'">
 		<SupportedOSPlatformVersion>21</SupportedOSPlatformVersion>
 	</PropertyGroup>
 
-	<PropertyGroup Condition="'$(TargetFramework)' == 'net8.0-ios' or '$(TargetFramework)' == 'net8.0-tvos'">
+	<PropertyGroup Condition="'$(TargetFramework)' == 'net9.0-ios' or '$(TargetFramework)' == 'net9.0-tvos'">
 		<SupportedOSPlatformVersion>11.0</SupportedOSPlatformVersion>
 	</PropertyGroup>
 
-	<ItemGroup Condition="'$(TargetFramework)' == 'net8.0-windows'">
+	<ItemGroup Condition="'$(TargetFramework)' == 'net9.0-windows'">
 		<PackageReference Include="ImeSharp" Version="1.4.1" />
 	</ItemGroup>
 
-	<ItemGroup Condition="'$(TargetFramework)' == 'net8.0-android'">
-		<PackageReference Include="SDLDroidSharp-JBindings" Version="3.2.16" />
+	<ItemGroup Condition="'$(TargetFramework)' == 'net9.0-android'">
+		<PackageReference Include="SDLDroidSharp-JBindings" Version="3.4.0" />
 	</ItemGroup>
 
 	<PropertyGroup>

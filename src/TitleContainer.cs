@@ -157,7 +157,7 @@ namespace Microsoft.Xna.Framework
 			var path = Path.Combine(TitleLocation.Path, name);
 			if (!File.Exists(path))
 			{
-				var inputStream = Android.App.Application.Context.Assets.Open(name);
+				var inputStream = global::Android.App.Application.Context.Assets.Open(name);
 
 				Directory.CreateDirectory(Path.GetDirectoryName(path)); // Ensure subdirectories
 				FileStream s = new FileStream(path, FileMode.OpenOrCreate, FileAccess.ReadWrite);
