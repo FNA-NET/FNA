@@ -10,11 +10,11 @@ FNA.NET is a opinioned fork of FNA. Its goal is to bring FNA to nuget package ma
 | OS                            | Architectures         | Renderer             |
 | ----------------------------- | --------------------- | -------------------- |
 | Android                       | Arm64                 | OpenGL               |
-| Android                       | Arm64                 | Vulkan(some devices) |
+| Android                       | Arm64                 | Vulkan(Many devices) |
 
 Notes:
 
-* Android: It should run with OpenGL on most devices. It runs with Vulkan on few modern devices since it has driver issues.
+* Android: It should run with OpenGL on most devices. It runs with Vulkan on many modern devices with the newer SDL_GPU.
 * Android: Emulator is not supported as SDL3 GPU has no support for it.
 
 ### Apple
