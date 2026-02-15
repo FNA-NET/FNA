@@ -38,8 +38,7 @@ Notes:
 
 Notes:
 
-* There's a seperate package `FNA.NET.UWP` for UWP.
-* UWP is supported through SDL2 and old version fna binaries only! SDL3 has dropped the support of UWP platform.
+* UWP is supported through a custom [SDL3 fork](https://github.com/FNA-NET/SDL3-uwp) as SDL3 has dropped the support of UWP platform officially.
 
 ### Linux
 

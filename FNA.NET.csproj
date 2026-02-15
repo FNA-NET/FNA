@@ -459,8 +459,8 @@
 		<Description>Fork of FNA with nuget packages.</Description>
 		<PackageTags>fna;xna;net8</PackageTags>
 		<PackageId>FNA.NET</PackageId>
-		<Copyright>Copyright 2025 FNA-NET</Copyright>
-		<VersionPrefix>2.1.2.2506</VersionPrefix>
+		<Copyright>Copyright 2026 FNA-NET</Copyright>
+		<VersionPrefix>2.2.0.2602</VersionPrefix>
 		<VersionSuffix></VersionSuffix>
 		<AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
 
