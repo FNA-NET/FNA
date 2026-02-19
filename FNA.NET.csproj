@@ -439,7 +439,7 @@
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(TargetFramework)' == 'net9.0-ios' or '$(TargetFramework)' == 'net9.0-tvos'">
-		<SupportedOSPlatformVersion>11.0</SupportedOSPlatformVersion>
+		<SupportedOSPlatformVersion>13.0</SupportedOSPlatformVersion>
 	</PropertyGroup>
 
 	<ItemGroup Condition="'$(TargetFramework)' == 'net9.0-windows'">
