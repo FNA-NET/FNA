@@ -426,7 +426,7 @@
 	</ItemGroup>
 
 	<ItemGroup Condition="'$(TargetFramework)' == 'net9.0-windows10.0.26100.0'">
-		<PackageReference Include="FNA.NET.NativeAssets.UWP" Version="2.0.1.2602" />
+		<PackageReference Include="FNA.NET.NativeAssets.UWP" Version="2.0.2.2602" />
 	</ItemGroup>
 
 	<PropertyGroup Condition="'$(TargetFramework)' == 'net9.0-windows10.0.26100.0'">
@@ -460,7 +460,7 @@
 		<PackageTags>fna;xna;net8</PackageTags>
 		<PackageId>FNA.NET</PackageId>
 		<Copyright>Copyright 2026 FNA-NET</Copyright>
-		<VersionPrefix>2.2.1.2602</VersionPrefix>
+		<VersionPrefix>2.2.2.2602</VersionPrefix>
 		<VersionSuffix></VersionSuffix>
 		<AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
 
