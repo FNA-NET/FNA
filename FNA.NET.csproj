@@ -426,7 +426,7 @@
 	</ItemGroup>
 
 	<ItemGroup Condition="'$(TargetFramework)' == 'net9.0-windows10.0.26100.0'">
-		<PackageReference Include="FNA.NET.NativeAssets.UWP" Version="2.0.3.2602" />
+		<PackageReference Include="FNA.NET.NativeAssets.UWP" Version="2.0.5.2602" />
 	</ItemGroup>
 
 	<PropertyGroup Condition="'$(TargetFramework)' == 'net9.0-windows10.0.26100.0'">
@@ -443,7 +443,6 @@
 	</PropertyGroup>
 
 	<ItemGroup Condition="'$(TargetFramework)' == 'net9.0-windows'">
-		<PackageReference Include="ImeSharp" Version="1.4.1" />
 	</ItemGroup>
 
 	<ItemGroup Condition="'$(TargetFramework)' == 'net9.0-android'">

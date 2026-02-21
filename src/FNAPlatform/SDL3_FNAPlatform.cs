@@ -1181,6 +1181,40 @@ namespace Microsoft.Xna.Framework
 					}
 				}
 
+				else if (evt.type == (uint) SDL.SDL_EventType.SDL_EVENT_TEXT_EDITING_CANDIDATES)
+				{
+					if (evt.edit_candidates.num_candidates > 0)
+					{
+						string[] candidates = new string[evt.edit_candidates.num_candidates];
+						for (int i = 0; i < evt.edit_candidates.num_candidates; i++)
+						{
+							byte* candidatePtr = evt.edit_candidates.candidates[i];
+							int bytes = MeasureStringLength(candidatePtr);
+							if (bytes > 0)
+							{
+								int chars = Encoding.UTF8.GetChars(
+									candidatePtr,
+									bytes,
+									charsBuffer,
+									bytes
+								);
+								candidates[i] = new string(charsBuffer, 0, chars);
+							}
+							else
+							{
+								candidates[i] = string.Empty;
+							}
+						}
+						TextInputEXT.OnTextEditingCandidates(
+							candidates,
+							evt.edit_candidates.selected_candidate,
+							evt.edit_candidates.horizontal
+						);
+					}
+					else
+						TextInputEXT.OnTextEditingCandidates(Array.Empty<string>(), 0, false);
+				}
+
 				// Quit
 				else if (evt.type == (uint) SDL.SDL_EventType.SDL_EVENT_QUIT)
 				{
