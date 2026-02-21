@@ -426,7 +426,7 @@
 	</ItemGroup>
 
 	<ItemGroup Condition="'$(TargetFramework)' == 'net9.0-windows10.0.26100.0'">
-		<PackageReference Include="FNA.NET.NativeAssets.UWP" Version="2.0.2.2602" />
+		<PackageReference Include="FNA.NET.NativeAssets.UWP" Version="2.0.3.2602" />
 	</ItemGroup>
 
 	<PropertyGroup Condition="'$(TargetFramework)' == 'net9.0-windows10.0.26100.0'">
