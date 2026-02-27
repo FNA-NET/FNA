@@ -1158,6 +1158,8 @@ namespace Microsoft.Xna.Framework
 						{
 							TextInputEXT.OnTextInput(charsBuffer[i]);
 						}
+
+						TextInputEXT.OnImeTextInput(new string(charsBuffer, 0, chars));
 					}
 				}
 

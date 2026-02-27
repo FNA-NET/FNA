@@ -26,6 +26,8 @@ namespace Microsoft.Xna.Framework.Input
 		/// </summary>
 		public static event Action<char> TextInput;
 
+		public static event Action<string> ImeTextInput;
+
 		/// <summary>
 		/// This event notifies you of in-progress text composition happening in an IME or other tool
 		///  and allows you to display the draft text appropriately before it has become input.
@@ -101,6 +103,14 @@ namespace Microsoft.Xna.Framework.Input
 			if (TextInput != null)
 			{
 				TextInput(c);
+			}
+		}
+
+		internal static void OnImeTextInput(string text)
+		{
+			if (ImeTextInput != null)
+			{
+				ImeTextInput(text);
 			}
 		}
 
