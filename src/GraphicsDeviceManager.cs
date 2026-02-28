@@ -164,8 +164,8 @@ namespace Microsoft.Xna.Framework
 
 		#region Public Static Fields
 
-		public static readonly int DefaultBackBufferWidth = 800;
-		public static readonly int DefaultBackBufferHeight = 480;
+		public static int DefaultBackBufferWidth = 800;
+		public static int DefaultBackBufferHeight = 480;
 
 		#endregion
 
