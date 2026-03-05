@@ -2352,7 +2352,7 @@ namespace Microsoft.Xna.Framework
 				var id = (ulong)Marshal.ReadInt64(touchDeviceIDs, i * sizeof(ulong));
 				var deviceName = SDL.SDL_GetTouchDeviceName(id);
 
-				if (deviceName.Contains("Virtual") || deviceName.Contains("pen_input") || (long)id == -2)
+				if (deviceName.Contains("Virtual") || deviceName.Contains("pen_input") || (long)id < 0)
 					continue;
 
 				SDL.SDL_free(touchDeviceIDs);
