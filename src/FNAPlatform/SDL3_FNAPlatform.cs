@@ -2349,12 +2349,14 @@ namespace Microsoft.Xna.Framework
 			IntPtr touchDeviceIDs = SDL.SDL_GetTouchDevices(out touchDeviceCount);
 			for (int i = 0; i < touchDeviceCount; i++)
 			{
-				var id = GetTouchDeviceId(i);
+				var id = (ulong)Marshal.ReadInt64(touchDeviceIDs, i * sizeof(ulong));
 				var deviceName = SDL.SDL_GetTouchDeviceName(id);
-				if (string.IsNullOrEmpty(deviceName))
-					return id;
-				if (deviceName.Contains("Virtual") || deviceName.Contains("pen_input"))
+
+				if (deviceName.Contains("Virtual") || deviceName.Contains("pen_input") || (long)id == -2)
 					continue;
+
+				SDL.SDL_free(touchDeviceIDs);
+				return id;
 			}
 			SDL.SDL_free(touchDeviceIDs);
 			return 0;
