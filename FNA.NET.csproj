@@ -354,6 +354,7 @@
 		<Compile Include="src\Storage\StorageContainer.cs" />
 		<Compile Include="src\Storage\StorageDevice.cs" />
 		<Compile Include="src\Storage\StorageDeviceNotConnectedException.cs" />
+		<Compile Include="src\SDL3IOStream.cs" />
 		<Compile Include="src\TitleContainer.cs" />
 		<Compile Include="src\TitleLocation.cs" />
 		<Compile Include="src\Utilities\AssemblyHelper.cs" />
