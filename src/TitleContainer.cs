@@ -21,7 +21,7 @@
 #region Using Statements
 using System;
 using System.IO;
-
+using Microsoft.Xna.Framework.Media;
 using SDL3;
 #endregion
 
@@ -36,7 +36,12 @@ namespace Microsoft.Xna.Framework
 			string safeName = MonoGame.Utilities.FileHelpers.NormalizeFilePathSeparators(name);
 
 			if (SDL.SDL_GetPlatform() == "Android")
+			{
+				if (IsSongOrVideo(safeName))
+					return AndroidExtractAssetAndOpenStream(safeName);
+
 				return new SDL3IOStream(safeName);
+			}
 
 #if CASE_SENSITIVITY_HACK
 			if (Path.IsPathRooted(safeName))
@@ -146,6 +151,44 @@ namespace Microsoft.Xna.Framework
 #endif
 
 		#endregion
+
+		internal static bool IsSongOrVideo(string name)
+		{
+			string ext = Path.GetExtension(name).ToLower();
+			for (int i = 0; i < Content.SongReader.supportedExtensions.Length; i += 1)
+			{
+				if (ext == Content.SongReader.supportedExtensions[i])
+					return true;
+			}
+			for (int i = 0; i < Content.VideoReader.supportedExtensions.Length; i += 1)
+			{
+				if (ext == Content.VideoReader.supportedExtensions[i])
+					return true;
+			}
+			foreach(var item in VideoPlayer.codecExtensions)
+			{
+				if (ext == "." + item.Key)
+					return true;
+			}
+			return false;
+		}
+
+		public static FileStream AndroidExtractAssetAndOpenStream(string name)
+		{
+			var path = Path.Combine(TitleLocation.Path, name);
+			if (!File.Exists(path))
+			{
+				var inputStream = new SDL3IOStream(name);
+
+				Directory.CreateDirectory(Path.GetDirectoryName(path)); // Ensure subdirectories
+				FileStream s = new FileStream(path, FileMode.OpenOrCreate, FileAccess.ReadWrite);
+				inputStream.CopyTo(s);
+				s.Seek(0, SeekOrigin.Begin);
+				return s;
+			}
+			else
+				return File.OpenRead(path);
+		}
 	}
 }
 

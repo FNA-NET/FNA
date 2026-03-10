@@ -460,7 +460,7 @@
 		<PackageTags>fna;xna;net8</PackageTags>
 		<PackageId>FNA.NET</PackageId>
 		<Copyright>Copyright 2026 FNA-NET</Copyright>
-		<VersionPrefix>2.2.10.2602</VersionPrefix>
+		<VersionPrefix>2.2.11.2602</VersionPrefix>
 		<VersionSuffix></VersionSuffix>
 		<AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
 

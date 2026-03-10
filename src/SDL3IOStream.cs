@@ -68,6 +68,8 @@ namespace Microsoft.Xna.Framework
 			set => SDL.SDL_SeekIO(_io, value, SDL.SDL_IOWhence.SDL_IO_SEEK_SET);
 		}
 
+		public string FileName => _filename;
+
 		#endregion
 
 		#region Stream Methods
